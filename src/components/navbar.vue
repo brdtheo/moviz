@@ -8,9 +8,12 @@
 
 <script>
 export default {
-  name: "Navbar",
+  name: "navbar",
 };
 </script>
 
-<style>
+<style scoped>
+nav {
+    background: #303841;
+}
 </style>
