@@ -7,12 +7,18 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: () => import( '../views/Home.vue')  },
+    meta: { title: 'Accueil' },
+    component: () => import('../views/Home.vue')
+  },
 ]
 
 const router = new VueRouter({
   mode: 'history',
   routes
+})
+
+router.beforeEach((to) => {
+  document.title = to.meta.title;
 })
 
 export default router

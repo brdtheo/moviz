@@ -1,7 +1,15 @@
+:root {
+    --dark: #303841;
+    --dark2: #3a4750;
+    --red: #d72323;
+    --white: #eeeeee;
+}
+
 *, *::before, *::after {
     box-sizing: border-box;
 }
 
 body {
     margin: 0;
+    background: var(--dark);
 }

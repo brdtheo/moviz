@@ -1,19 +1,26 @@
 <template>
-  <div>
-    <nav>
-      <h4>test</h4>
-    </nav>
-  </div>
+  <nav>
+    <container>
+      <h1>Moviz</h1>
+    </container>
+  </nav>
 </template>
 
 <script>
+import container from './container'
+
 export default {
   name: "navbar",
+  components: {
+    container,
+  },
 };
 </script>
 
 <style scoped>
 nav {
-    background: #303841;
+  display: flex;
+  width: 100%;
+  background: var(--dark2);
 }
 </style>
