@@ -1,14 +1,17 @@
 <template>
-  <div id="app">
+  <v-app>
     <navbar />
-    <router-view />
-  </div>
+    <v-main>
+      <v-container>content</v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
 import Navbar from "./components/navbar";
 
 export default {
+  name: "App",
   components: {
     Navbar,
   },
@@ -16,5 +19,13 @@ export default {
 </script>
 
 <style>
-@import "./assets/style.css";
+.nav-left {
+  display: flex;
+  align-items: center;
+}
+
+.nav-right {
+  display: flex;
+  justify-content: flex-end;
+}
 </style>

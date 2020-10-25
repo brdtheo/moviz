@@ -7,7 +7,7 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    meta: { title: 'Accueil' },
+    meta: { title: 'Moviz: the movie hub' },
     component: () => import('../views/Home.vue')
   },
 ]
