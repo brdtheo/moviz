@@ -1,9 +1,9 @@
 <template>
-  <v-app-bar app color="#212121" class="white--text">
+  <v-app-bar app class="grey darken-4 white--text" flat outlined>
     <v-container>
       <v-row justify="center">
         <v-col cols="6" class="nav-left">
-          <v-toolbar-title color="white" class="title">Moviz</v-toolbar-title>
+          <v-toolbar-title class="title">Moviz</v-toolbar-title>
         </v-col>
         <v-col cols="6" class="nav-right">
           <v-btn color="white" icon>
