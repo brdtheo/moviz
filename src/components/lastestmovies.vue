@@ -4,7 +4,7 @@
 
     <v-container class="pa-0">
       <v-row>
-        <v-col sm="auto" md="4" lg=3>
+        <v-col xs="2" sm="4" md="4" lg="3" xl="2">
           <v-card>
             <v-img
               src="https://d13ezvd6yrslxm.cloudfront.net/wp/wp-content/images/avatar-sequels-high-frame-rate-700x321.jpg"
@@ -19,7 +19,7 @@
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col sm="auto" md="4" lg=3>
+        <v-col xs="2" sm="4" md="4" lg="3" xl="2">
           <v-card>
             <v-img
               src="https://d13ezvd6yrslxm.cloudfront.net/wp/wp-content/images/avatar-sequels-high-frame-rate-700x321.jpg"
@@ -34,7 +34,7 @@
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col sm="auto" md="4" lg="3">
+        <v-col xs="2" sm="4" md="4" lg="3" xl="2">
           <v-card>
             <v-img
               src="https://d13ezvd6yrslxm.cloudfront.net/wp/wp-content/images/avatar-sequels-high-frame-rate-700x321.jpg"
@@ -49,7 +49,7 @@
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col sm="auto" md="4" lg="3">
+        <v-col xs="2" sm="4" md="4" lg="3" xl="2">
           <v-card>
             <v-img
               src="https://d13ezvd6yrslxm.cloudfront.net/wp/wp-content/images/avatar-sequels-high-frame-rate-700x321.jpg"
