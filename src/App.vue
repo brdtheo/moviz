@@ -11,13 +11,13 @@
 
 <script>
 import Navbar from "./components/navbar";
-import lastestMovies from './components/lastestmovies'
+import lastestMovies from "./components/lastestmovies";
 
 export default {
   name: "App",
   components: {
     Navbar,
-    lastestMovies
+    lastestMovies,
   },
 };
 </script>

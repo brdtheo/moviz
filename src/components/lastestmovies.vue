@@ -4,64 +4,20 @@
 
     <v-container class="pa-0">
       <v-row>
-        <v-col xs="2" sm="4" md="4" lg="3" xl="2">
+        <v-col
+          xs="6"
+          sm="4"
+          md="4"
+          lg="3"
+          xl="2"
+          v-for="movie in movies"
+          :key="movie.id"
+        >
           <v-card>
-            <v-img
-              src="https://d13ezvd6yrslxm.cloudfront.net/wp/wp-content/images/avatar-sequels-high-frame-rate-700x321.jpg"
-            ></v-img>
-            <v-card-title>Avatar</v-card-title>
-            <v-card-subtitle>2009</v-card-subtitle>
-            <v-card-text>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non
-              placeat sequi nostrum nesciunt laborum blanditiis laudantium quas
-              dignissimos necessitatibus provident odit totam voluptatibus, quod
-              modi similique neque eius culpa amet.
-            </v-card-text>
-          </v-card>
-        </v-col>
-        <v-col xs="2" sm="4" md="4" lg="3" xl="2">
-          <v-card>
-            <v-img
-              src="https://d13ezvd6yrslxm.cloudfront.net/wp/wp-content/images/avatar-sequels-high-frame-rate-700x321.jpg"
-            ></v-img>
-            <v-card-title>Avatar</v-card-title>
-            <v-card-subtitle>2009</v-card-subtitle>
-            <v-card-text>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non
-              placeat sequi nostrum nesciunt laborum blanditiis laudantium quas
-              dignissimos necessitatibus provident odit totam voluptatibus, quod
-              modi similique neque eius culpa amet.
-            </v-card-text>
-          </v-card>
-        </v-col>
-        <v-col xs="2" sm="4" md="4" lg="3" xl="2">
-          <v-card>
-            <v-img
-              src="https://d13ezvd6yrslxm.cloudfront.net/wp/wp-content/images/avatar-sequels-high-frame-rate-700x321.jpg"
-            ></v-img>
-            <v-card-title>Avatar</v-card-title>
-            <v-card-subtitle>2009</v-card-subtitle>
-            <v-card-text>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non
-              placeat sequi nostrum nesciunt laborum blanditiis laudantium quas
-              dignissimos necessitatibus provident odit totam voluptatibus, quod
-              modi similique neque eius culpa amet.
-            </v-card-text>
-          </v-card>
-        </v-col>
-        <v-col xs="2" sm="4" md="4" lg="3" xl="2">
-          <v-card>
-            <v-img
-              src="https://d13ezvd6yrslxm.cloudfront.net/wp/wp-content/images/avatar-sequels-high-frame-rate-700x321.jpg"
-            ></v-img>
-            <v-card-title>Avatar</v-card-title>
-            <v-card-subtitle>2009</v-card-subtitle>
-            <v-card-text>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non
-              placeat sequi nostrum nesciunt laborum blanditiis laudantium quas
-              dignissimos necessitatibus provident odit totam voluptatibus, quod
-              modi similique neque eius culpa amet.
-            </v-card-text>
+            <v-img :src="movie.image"></v-img>
+            <v-card-title>{{ movie.name }}</v-card-title>
+            <v-card-subtitle>{{ movie.year }}</v-card-subtitle>
+            <v-card-text>{{ movie.description }}</v-card-text>
           </v-card>
         </v-col>
       </v-row>
@@ -70,8 +26,20 @@
 </template>
 
 <script>
+import { db } from "../firebase";
+
 export default {
   name: "lastestMovies",
+
+  data: () => {
+    return {
+      movies: {},
+    };
+  },
+
+  firestore: {
+    movies: db.collection("movies"),
+  },
 };
 </script>
 
