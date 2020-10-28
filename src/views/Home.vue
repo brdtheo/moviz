@@ -1,16 +1,16 @@
 <template>
-  <container>
-    test
-  </container>
+  <div>
+    <lastestMovies />
+  </div>
 </template>
 
 <script>
-import container from '../components/container'
+import lastestMovies from "../components/lastestmovies";
 
 export default {
-  name: 'Home',
+  name: "home",
   components: {
-    container
-  }
-}
+    lastestMovies,
+  },
+};
 </script>

@@ -6,9 +6,15 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'Home',
+    name: 'home',
     meta: { title: 'Moviz: the movie hub' },
-    component: () => import('../views/Home.vue')
+    component: () => import('../views/home.vue')
+  },
+  {
+    path: '/all-movies',
+    name: 'all-movies',
+    meta: { title: 'All movies - Moviz' },
+    component: () => import('../views/allmovies.vue')
   },
 ]
 
@@ -17,7 +23,7 @@ const router = new VueRouter({
   routes
 })
 
-router.beforeEach((to) => {
+router.afterEach((to) => {
   document.title = to.meta.title;
 })
 

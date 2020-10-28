@@ -2,8 +2,7 @@
   <div class="py-8 py-sm-16">
     <v-container class="pa-0">
       <div class="mb-5 d-flex justify-space-between align-center">
-        <h2 class="font-weight-light">Lastest movies</h2>
-        <v-btn x-small text class="white--text" to="all-movies">all movies</v-btn>
+        <h2 class="font-weight-light">All movies</h2>
       </div>
       <v-row>
         <v-col
@@ -36,8 +35,6 @@
 import { db } from "../firebase";
 
 export default {
-  name: "lastestMovies",
-
   data: () => {
     return {
       movies: {},
@@ -45,13 +42,7 @@ export default {
   },
 
   firestore: {
-    movies: db.collection("movies").orderBy("uploadDate", "desc"),
+    movies: db.collection("movies").orderBy("name"),
   },
 };
 </script>
-
-<style>
-.v-card__title {
-  word-break: break-word;
-}
-</style>
