@@ -1,1 +1,3 @@
-readme soon
+# Moviz
+
+Work in progress 🚧
