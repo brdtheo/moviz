@@ -3,7 +3,9 @@
     <v-container class="pa-0">
       <div class="mb-5 d-flex justify-space-between align-center">
         <h2 class="font-weight-light">Lastest movies</h2>
-        <v-btn x-small text class="white--text" to="all-movies">all movies</v-btn>
+        <v-btn x-small text class="white--text" to="all-movies"
+          >all movies</v-btn
+        >
       </div>
       <v-row>
         <v-col
@@ -15,17 +17,19 @@
           v-for="movie in movies"
           :key="movie.id"
         >
-          <v-card>
+          <moviecard>
             <v-img height="100" :src="movie.image"></v-img>
-            <v-card-title>{{ movie.name }}</v-card-title>
-            <v-card-subtitle>{{ movie.year }}</v-card-subtitle>
-            <v-card-text>
+            <span slot="name">{{ movie.name }}</span>
+            <span slot="year">{{ movie.year }}</span>
+            <span slot="description">
               {{ movie.description.substring(0, 97) + "..." }}
-            </v-card-text>
-            <v-card-actions>
-              <v-btn small color="indigo" class="white--text"> infos </v-btn>
-            </v-card-actions>
-          </v-card>
+            </span>
+            <div slot="actions">
+              <v-btn @click="navigate(movie.id)" color="indigo" dark small>
+                infos
+              </v-btn>
+            </div>
+          </moviecard>
         </v-col>
       </v-row>
     </v-container>
@@ -33,15 +37,27 @@
 </template>
 
 <script>
+import router from "../router/index";
+import moviecard from "./moviecard";
 import { db } from "../firebase";
 
 export default {
   name: "lastestMovies",
 
+  components: {
+    moviecard,
+  },
+
   data: () => {
     return {
       movies: {},
     };
+  },
+
+  methods: {
+    navigate: (movieId) => {
+      router.push({ name: "movie-detail", params: { movieId: movieId } });
+    },
   },
 
   firestore: {
