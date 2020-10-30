@@ -6,14 +6,13 @@
     outlined
     elevate-on-scroll
   >
-    <v-container>
-      <v-row justify="center">
-        <v-col cols="6" class="nav-left">
+    <v-container class="pa-0">
+      <v-row>
+        <v-col cols="12" class="pa-0 d-flex justify-space-between">
           <v-btn dark icon class="no-active" to="/">
             <v-icon>mdi-home</v-icon>
           </v-btn>
-        </v-col>
-        <v-col cols="6" class="nav-right">
+
           <v-btn dark icon>
             <v-icon>mdi-magnify</v-icon>
           </v-btn>
