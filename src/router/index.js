@@ -16,6 +16,12 @@ const routes = [
     meta: { title: 'All movies - Moviz' },
     component: () => import('../views/allmovies.vue')
   },
+  {
+    path: '/movie/:movieId',
+    name: 'movie-detail',
+    meta: { title: 'Moviz' },
+    component: () => import('../views/moviedetail.vue')
+  },
 ]
 
 const router = new VueRouter({
