@@ -3,19 +3,29 @@
     <navbar />
 
     <v-main class="grey darken-4 white--text">
-      <v-container>
+      <v-container class="pa-0">
         <router-view></router-view>
       </v-container>
     </v-main>
+
+    <mfooter />
   </v-app>
 </template>
 
 <script>
-import Navbar from "./components/navbar";
+import navbar from "./components/navbar";
+import mfooter from "./components/footer";
 
 export default {
   components: {
-    Navbar,
+    navbar,
+    mfooter,
   },
 };
 </script>
+
+<style>
+.v-btn--active.no-active::before {
+  opacity: 0 !important;
+}
+</style>

@@ -9,7 +9,7 @@
     <v-container>
       <v-row justify="center">
         <v-col cols="6" class="nav-left">
-          <v-btn dark icon to="/">
+          <v-btn dark icon class="no-active" to="/">
             <v-icon>mdi-home</v-icon>
           </v-btn>
         </v-col>
