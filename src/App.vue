@@ -3,7 +3,7 @@
     <navbar />
 
     <v-main class="grey darken-4 white--text">
-      <v-container class="pa-0">
+      <v-container>
         <router-view></router-view>
       </v-container>
     </v-main>
