@@ -2,7 +2,7 @@
   <div class="py-8 py-sm-16">
     <v-container class="pa-0">
       <div class="mb-5 d-flex justify-space-between align-center">
-        <h2 class="font-weight-light">All movies</h2>
+        <h2 class="font-weight-light">All movies ({{ movies.length }})</h2>
       </div>
       <v-row>
         <v-col

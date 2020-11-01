@@ -2,7 +2,7 @@
   <v-app>
     <navbar />
 
-    <v-main class="grey darken-4 white--text">
+    <v-main class="pa-0 grey darken-4 white--text">
       <v-container>
         <router-view></router-view>
       </v-container>

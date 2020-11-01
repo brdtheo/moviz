@@ -1,12 +1,12 @@
 <template>
-  <v-footer class="grey darken-4 white--text" padless height="150">
-    <v-container class="">
+  <v-footer class="grey darken-4 white--text" padless>
+    <v-container>
       <v-row justify="center" align="center">
         <v-col cols="6">
           <v-btn
             icon
             dark
-            class="mr-8"
+            class="mr-sm-2 mr-md-8"
             v-for="link in social"
             :key="link.name"
             :href="link.url"

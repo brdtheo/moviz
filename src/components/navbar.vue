@@ -1,6 +1,6 @@
 <template>
   <div class="grey darken-4 white--text">
-    <v-app-bar app class="grey darken-4" flat outlined elevate-on-scroll>
+    <v-app-bar app class="grey darken-4" flat elevate-on-scroll>
       <v-container>
         <v-row>
           <v-col cols="12" class="pa-0 d-flex justify-space-between">
@@ -8,10 +8,9 @@
               <v-icon>mdi-home</v-icon>
             </v-btn>
 
-            <div class="d-flex align-center">
+            <div class="d-flex align-center justify-end w-100">
               <v-fade-transition hide-on-leave>
                 <v-text-field
-                  ref="input"
                   @keyup.esc="toggleSearchMode"
                   @input="querySearch(searchField)"
                   class="search-bar"
@@ -48,9 +47,9 @@
         </v-row>
       </v-container>
     </v-app-bar>
-    <v-container class="mt-16" v-if="searchField">
+    <v-container class="pt-8" v-if="searchField">
       <div class="mb-5 d-flex justify-space-between align-center">
-        <h2 class="font-weight-light">Your search</h2>
+        <h2 class="font-weight-light">Your search ({{ queryResult.length }})</h2>
       </div>
       <v-row>
         <v-col v-if="queryResult.length == 0">No results.</v-col>
@@ -138,11 +137,19 @@ export default {
 </script>
 
 <style scoped>
+.w-100 {
+  width: 100%;
+}
+
 .search-bar {
-  width: 250px;
+  width: 100%;
 }
 
 .v-btn--active.no-active::before {
   opacity: 0 !important;
+}
+
+.v-app-bar {
+  position: relative !important;
 }
 </style>
