@@ -3,7 +3,12 @@
     <v-container class="pa-0">
       <div class="mb-5 d-flex justify-space-between align-center">
         <h2 class="font-weight-light">
-          All {{ currentGenre }} movies ({{ movies.length }})
+          {{
+            $t("allmovies") +
+            " " +
+            $t("genre." + currentGenre) +
+            ` (${movies.length})`
+          }}
         </h2>
       </div>
       <v-row>
@@ -17,11 +22,14 @@
           :key="movie.id"
         >
           <moviecard>
-            <v-img height="100" :src="movie.image"></v-img>
-            <span slot="name">{{ movie.name }}</span>
-            <span slot="year">{{ movie.year }}</span>
-            <span slot="description">
-              {{ movie.description.substring(0, 97) + "..." }}
+            <v-img height="100" :src="movie.data.image"></v-img>
+            <span slot="name">{{ movie.data.name }}</span>
+            <span slot="year">{{ movie.data.year }}</span>
+            <span slot="description" v-if="$i18n.locale == 'en'">
+              {{ movie.data.description.en.substring(0, 97) + "..." }}
+            </span>
+            <span slot="description" v-if="$i18n.locale == 'fr'">
+              {{ movie.data.description.fr.substring(0, 97) + "..." }}
             </span>
             <div slot="actions">
               <v-btn @click="navigate(movie.id)" color="indigo" dark small>
@@ -71,8 +79,11 @@ export default {
       .get()
       .then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
-          // doc.data() is never undefined for query doc snapshots
-          vm.movies.push(doc.data());
+          let movie = {
+            id: doc.id,
+            data: doc.data(),
+          };
+          vm.movies.push(movie);
         });
       })
       .catch(function (error) {

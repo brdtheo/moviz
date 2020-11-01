@@ -8,7 +8,31 @@
               <v-icon>mdi-home</v-icon>
             </v-btn>
 
-            <div class="d-flex align-center justify-end w-100">
+            <v-menu offset-y>
+              <template v-slot:activator="{ attrs, on }">
+                <v-btn
+                  class="indigo languageBtn"
+                  dark
+                  small
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                  {{ $t("language") }}
+                </v-btn>
+              </template>
+              <v-list dense>
+                <v-list-item
+                  @click="changeLocale(language.abbr)"
+                  link
+                  v-for="language in languages"
+                  :key="language.name"
+                >
+                  <v-list-item-title>{{ language.name }}</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+
+            <div class="d-flex align-center justify-end w-100 pl-5">
               <v-fade-transition hide-on-leave>
                 <v-text-field
                   @keyup.esc="toggleSearchMode"
@@ -49,10 +73,12 @@
     </v-app-bar>
     <v-container class="pt-8" v-if="searchField">
       <div class="mb-5 d-flex justify-space-between align-center">
-        <h2 class="font-weight-light">Your search ({{ queryResult.length }})</h2>
+        <h2 class="font-weight-light">
+          {{ $t("search") }} ({{ queryResult.length }})
+        </h2>
       </div>
       <v-row>
-        <v-col v-if="queryResult.length == 0">No results.</v-col>
+        <v-col v-if="queryResult.length == 0">{{ $t("noresult") }}</v-col>
         <v-col
           sm="4"
           md="4"
@@ -64,11 +90,14 @@
           v-else
         >
           <moviecard>
-            <v-img height="100" :src="movie.image"></v-img>
-            <span slot="name">{{ movie.name }}</span>
-            <span slot="year">{{ movie.year }}</span>
-            <span slot="description">
-              {{ movie.description.substring(0, 97) + "..." }}
+            <v-img height="100" :src="movie.data.image"></v-img>
+            <span slot="name">{{ movie.data.name }}</span>
+            <span slot="year">{{ movie.data.year }}</span>
+            <span slot="description" v-if="$i18n.locale == 'en'">
+              {{ movie.data.description.en.substring(0, 97) + "..." }}
+            </span>
+            <span slot="description" v-if="$i18n.locale == 'fr'">
+              {{ movie.data.description.fr.substring(0, 97) + "..." }}
             </span>
             <div slot="actions">
               <v-btn @click="navigate(movie.id)" color="indigo" dark small>
@@ -99,10 +128,28 @@ export default {
       searchMode: false,
       searchField: "",
       queryResult: [],
+
+      // i18n
+      currentLocale: "en",
+      languages: [
+        {
+          name: "english",
+          abbr: "en",
+        },
+        {
+          name: "français",
+          abbr: "fr",
+        },
+      ],
     };
   },
 
   methods: {
+    // i18n
+    changeLocale(locale) {
+      this.$i18n.locale = locale;
+    },
+
     navigate: (movieId) => {
       router.push({ name: "movie-detail", params: { movieId: movieId } });
     },
@@ -125,7 +172,11 @@ export default {
         .get()
         .then(function (querySnapshot) {
           querySnapshot.forEach(function (doc) {
-            vm.queryResult.push(doc.data());
+            let movie = {
+              id: doc.id,
+              data: doc.data(),
+            };
+            vm.queryResult.push(movie);
           });
         })
         .catch(function (error) {
@@ -137,6 +188,10 @@ export default {
 </script>
 
 <style scoped>
+.languageBtn {
+  align-self: center;
+}
+
 .w-100 {
   width: 100%;
 }

@@ -2,10 +2,10 @@
   <div class="py-8 py-sm-16">
     <v-container class="pa-0">
       <div class="mb-5 d-flex justify-space-between align-center">
-        <h2 class="font-weight-light">Lastest movies</h2>
-        <v-btn x-small text class="white--text" to="all-movies"
-          >all movies</v-btn
-        >
+        <h2 class="font-weight-light">{{ $t("lastestmovies") }}</h2>
+        <v-btn x-small text class="white--text" to="all-movies">
+          {{ $t("allmovies") }}
+        </v-btn>
       </div>
       <v-row>
         <v-col
@@ -21,8 +21,11 @@
             <v-img height="100" :src="movie.image"></v-img>
             <span slot="name">{{ movie.name }}</span>
             <span slot="year">{{ movie.year }}</span>
-            <span slot="description">
-              {{ movie.description.substring(0, 97) + "..." }}
+            <span slot="description" v-if="$i18n.locale == 'en'">
+              {{ movie.description.en.substring(0, 97) + "..." }}
+            </span>
+            <span slot="description" v-if="$i18n.locale == 'fr'">
+              {{ movie.description.fr.substring(0, 97) + "..." }}
             </span>
             <div slot="actions">
               <v-btn @click="navigate(movie.id)" color="indigo" dark small>
@@ -55,6 +58,10 @@ export default {
   },
 
   methods: {
+    returnlocale: () => {
+      return this.$i18n.locale;
+    },
+
     navigate: (movieId) => {
       router.push({ name: "movie-detail", params: { movieId: movieId } });
     },
@@ -71,3 +78,4 @@ export default {
   word-break: break-word;
 }
 </style>
+

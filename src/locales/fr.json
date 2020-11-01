@@ -1,0 +1,25 @@
+{
+    "language": "langue",
+    "search": "Votre recherche",
+    "noresult": "Aucun résultat.",
+    "lastestmovies": "Derniers films",
+    "allmovies": "Tous les films",
+    "genre": {
+        "action": "action",
+        "adventure": "aventure",
+        "horror": "horreur",
+        "science fiction": "science fiction",
+        "suspense": "suspense",
+        "thriller": "thriller",
+        "disaster": "catastrophe",
+        "drama": "drame",
+        "mystery": "mystère",
+        "epic": "épique",
+        "superhero": "super-héros",
+        "crime film": "crime"
+    },
+    "length": "Durée",
+    "year": "Année",
+    "userreviews": "Avis utilisateurs",
+    "noreviews": "Il n'y a aucun avis disponible pour ce film."
+}
