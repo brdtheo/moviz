@@ -20,6 +20,7 @@
             small
             v-for="genre in movie.genre"
             :key="genre"
+            @click="navigateByGenre(genre)"
           >
             {{ genre }}
           </v-chip>
@@ -78,6 +79,7 @@
 </template>
 
 <script>
+import router from "../router/index";
 import Plyr from "plyr";
 import { db } from "../firebase";
 
@@ -87,6 +89,12 @@ export default {
       movie: {},
       reviews: [],
     };
+  },
+
+  methods: {
+    navigateByGenre(genre) {
+      router.push({ name: "all-movies-by-genre", params: { genre: genre } });
+    },
   },
 
   mounted() {

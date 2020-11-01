@@ -17,6 +17,12 @@ const routes = [
     component: () => import('../views/allmovies.vue')
   },
   {
+    path: '/all-movies/genre/:genre',
+    name: 'all-movies-by-genre',
+    meta: { title: 'All movies - Moviz' },
+    component: () => import('../views/allmoviesbygenre.vue')
+  },
+  {
     path: '/movie/:movieId',
     name: 'movie-detail',
     meta: { title: 'Moviz' },
