@@ -61,7 +61,7 @@ export default {
   },
 
   firestore: {
-    movies: db.collection("movies").orderBy("uploadDate", "desc"),
+    movies: db.collection("movies").orderBy("uploadDate", "desc").limit(5),
   },
 };
 </script>
