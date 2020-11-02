@@ -94,7 +94,7 @@
           v-else
         >
           <moviecard>
-            <v-img height="100" :src="movie.data.image"></v-img>
+            <v-img position="top" height="100" :src="movie.data.image"></v-img>
             <span slot="name">{{ movie.data.name }}</span>
             <span slot="year">{{ movie.data.year }}</span>
             <span slot="description" v-if="$i18n.locale == 'en'">
@@ -104,7 +104,7 @@
               {{ movie.data.description.fr.substring(0, 97) + "..." }}
             </span>
             <div slot="actions">
-              <v-btn @click="navigate(movie.id)" color="indigo" dark small>
+              <v-btn @click="toggleSearchMode(); navigate(movie.id)" color="indigo" dark small>
                 infos
               </v-btn>
             </div>

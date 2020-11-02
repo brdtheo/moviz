@@ -17,7 +17,7 @@
           :key="movie.id"
         >
           <moviecard>
-            <v-img height="100" :src="movie.image"></v-img>
+            <v-img position="top" height="100" :src="movie.image"></v-img>
             <span slot="name">{{ movie.name }}</span>
             <span slot="year">{{ movie.year }}</span>
             <span slot="description" v-if="$i18n.locale == 'en'">
