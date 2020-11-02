@@ -19,6 +19,7 @@
                     v-on="on"
                   >
                     {{ $t("language") }}
+                    <v-icon size="16">mdi-menu-down</v-icon>
                   </v-btn>
                 </template>
                 <v-list dense>
