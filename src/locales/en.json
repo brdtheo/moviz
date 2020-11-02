@@ -4,6 +4,7 @@
     "noresult": "No result.",
     "lastestmovies": "Lastest movies",
     "allmovies": "All movies",
+    "allmoviesbycategory": "All movies in category",
     "genre": {
         "action": "action",
         "adventure": "adventure",
@@ -16,7 +17,12 @@
         "mystery": "mystery",
         "epic": "epic",
         "superhero": "superhero",
-        "crime film": "crime film"
+        "crime film": "crime film",
+        "fantasy": "fantasy",
+        "supernatural": "supernatural",
+        "psychological horror": "phychological horror",
+        "romance": "romance",
+        "comedy": "comedy"
     },
     "length": "Length",
     "year": "Year",
