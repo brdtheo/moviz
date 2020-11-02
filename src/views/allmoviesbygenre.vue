@@ -4,7 +4,7 @@
       <div class="mb-5 d-flex justify-space-between align-center">
         <h2 class="font-weight-light">
           {{
-            $t("allmovies") +
+            $t("allmoviesbycategory") +
             " " +
             $t("genre." + currentGenre) +
             ` (${movies.length})`
