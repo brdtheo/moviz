@@ -22,7 +22,10 @@
         "supernatural": "surnaturel",
         "psychological horror": "horreur psychologique",
         "romance": "romance",
-        "comedy": "comédie"
+        "comedy": "comédie",
+        "adaptation": "adaptation",
+        "psychological thriller": "thriller psychologique",
+        "narrative": "narratif"
     },
     "length": "Durée",
     "year": "Année",
