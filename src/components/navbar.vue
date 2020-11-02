@@ -4,40 +4,43 @@
       <v-container>
         <v-row>
           <v-col cols="12" class="pa-0 d-flex justify-space-between">
-            <v-btn dark icon class="no-active" to="/">
-              <v-icon>mdi-home</v-icon>
-            </v-btn>
+            <div class="w-50 d-flex">
+              <v-btn dark icon class="no-active" to="/">
+                <v-icon>mdi-home</v-icon>
+              </v-btn>
 
-            <v-menu offset-y>
-              <template v-slot:activator="{ attrs, on }">
-                <v-btn
-                  class="indigo languageBtn"
-                  dark
-                  small
-                  v-bind="attrs"
-                  v-on="on"
-                >
-                  {{ $t("language") }}
-                </v-btn>
-              </template>
-              <v-list dense>
-                <v-list-item
-                  @click="changeLocale(language.abbr)"
-                  link
-                  v-for="language in languages"
-                  :key="language.name"
-                >
-                  <v-list-item-title>{{ language.name }}</v-list-item-title>
-                </v-list-item>
-              </v-list>
-            </v-menu>
+              <v-menu offset-y>
+                <template v-slot:activator="{ attrs, on }">
+                  <v-btn
+                    class="indigo languageBtn"
+                    dark
+                    small
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    {{ $t("language") }}
+                  </v-btn>
+                </template>
+                <v-list dense>
+                  <v-list-item
+                    @click="changeLocale(language.abbr)"
+                    link
+                    v-for="language in languages"
+                    :key="language.name"
+                  >
+                    <v-list-item-title>{{ language.name }}</v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+            </div>
 
-            <div class="d-flex align-center justify-end w-100 pl-5">
+            <div class="d-flex align-center justify-end pl-5">
+              <v-spacer></v-spacer>
+
               <v-fade-transition hide-on-leave>
                 <v-text-field
                   @keyup.esc="toggleSearchMode"
                   @input="querySearch(searchField)"
-                  class="search-bar"
                   color="indigo"
                   dark
                   dense
@@ -193,10 +196,6 @@ export default {
 }
 
 .w-100 {
-  width: 100%;
-}
-
-.search-bar {
   width: 100%;
 }
 
