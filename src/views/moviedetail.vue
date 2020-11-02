@@ -25,10 +25,6 @@
             {{ $t("genre." + genre) }}
           </v-chip>
         </div>
-
-        <p class="mt-5">
-          {{ movie.description }}
-        </p>
       </v-col>
 
       <v-col cols="12" sm="6">
@@ -47,6 +43,13 @@
         </div>
       </v-col>
     </v-row>
+
+    <v-row>
+      <v-col>
+        <p class="mt-5 movieDescription">{{ returnDescription() }}</p>
+      </v-col>
+    </v-row>
+
     <v-row class="mt-15 mb-0">
       <v-col>
         <h2 class="font-weight-light mb-2">{{ $t("userreviews") }}</h2>
@@ -94,6 +97,18 @@ export default {
   methods: {
     navigateByGenre(genre) {
       router.push({ name: "all-movies-by-genre", params: { genre: genre } });
+    },
+
+    returnDescription() {
+      let vm = this.$data;
+      if (vm.movie.description) {
+        if (this.$i18n.locale == "en") {
+          return vm.movie.description.en;
+        }
+        if (this.$i18n.locale == "fr") {
+          return vm.movie.description.fr;
+        }
+      }
     },
   },
 
@@ -149,5 +164,9 @@ export default {
   outline: none !important;
   border: none !important;
   width: 100% !important;
+}
+
+.movieDescription {
+  line-height: 200%;
 }
 </style>
