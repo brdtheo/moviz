@@ -8,34 +8,9 @@
               <v-btn dark icon class="no-active" to="/">
                 <v-icon>mdi-home</v-icon>
               </v-btn>
-
-              <v-menu offset-y>
-                <template v-slot:activator="{ attrs, on }">
-                  <v-btn
-                    class="indigo languageBtn"
-                    dark
-                    small
-                    v-bind="attrs"
-                    v-on="on"
-                  >
-                    {{ $t("language") }}
-                    <v-icon size="16">mdi-menu-down</v-icon>
-                  </v-btn>
-                </template>
-                <v-list dense>
-                  <v-list-item
-                    @click="changeLocale(language.abbr)"
-                    link
-                    v-for="language in languages"
-                    :key="language.name"
-                  >
-                    <v-list-item-title>{{ language.name }}</v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
             </div>
 
-            <div class="d-flex align-center justify-end pl-5">
+            <div class="d-flex align-center justify-end">
               <v-spacer></v-spacer>
 
               <v-fade-transition hide-on-leave>
@@ -69,6 +44,32 @@
                 v-if="searchMode"
               >
                 <v-icon>mdi-close</v-icon>
+              </v-btn>
+              <v-menu offset-y>
+                <template v-slot:activator="{ attrs, on }">
+                  <v-btn
+                    class="languageBtn no-active"
+                    dark
+                    icon
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    <v-icon size="20">mdi-translate</v-icon>
+                  </v-btn>
+                </template>
+                <v-list dense>
+                  <v-list-item
+                    @click="changeLocale(language.abbr)"
+                    link
+                    v-for="language in languages"
+                    :key="language.name"
+                  >
+                    <v-list-item-title>{{ language.name }}</v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+              <v-btn class="no-active" icon dark to="/login">
+                <v-icon>mdi-account</v-icon>
               </v-btn>
             </div>
           </v-col>
@@ -104,7 +105,15 @@
               {{ movie.data.description.fr.substring(0, 97) + "..." }}
             </span>
             <div slot="actions">
-              <v-btn @click="toggleSearchMode(); navigate(movie.id)" color="indigo" dark small>
+              <v-btn
+                @click="
+                  toggleSearchMode();
+                  navigate(movie.id);
+                "
+                color="indigo"
+                dark
+                small
+              >
                 infos
               </v-btn>
             </div>
