@@ -30,5 +30,13 @@
     "length": "Durée",
     "year": "Année",
     "userreviews": "Avis utilisateurs",
-    "noreviews": "Il n'y a aucun avis disponible pour ce film."
+    "noreviews": "Il n'y a aucun avis disponible pour ce film.",
+    "login": "Se connecter",
+    "noaccountyet": "pas encore de compte ?",
+    "emailaddress": "Addresse e-mail",
+    "password": "Mot de passe",
+    "register": "s'enregistrer",
+    "logout": "Se déconnecter",
+    "myprofile": "Mon profil",
+    "writtenreviews": "avis rédigés"
 }

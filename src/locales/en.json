@@ -30,5 +30,13 @@
     "length": "Length",
     "year": "Year",
     "userreviews": "User reviews",
-    "noreviews": "There are no reviews available for this movie."
+    "noreviews": "There are no reviews available for this movie.",
+    "login": "Login",
+    "noaccountyet": "don't have an account yet ?",
+    "emailaddress": "Email address",
+    "password": "Password",
+    "register": "register",
+    "logout": "Logout",
+    "myprofile": "My profile",
+    "writtenreviews": "written reviews"
 }
