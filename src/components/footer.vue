@@ -6,7 +6,7 @@
           <v-btn
             icon
             dark
-            class="mr-sm-2 mr-md-8"
+            class="mr-sm-2 mr-md-4"
             v-for="link in social"
             :key="link.name"
             :href="link.url"
