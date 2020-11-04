@@ -60,20 +60,23 @@
           :key="review.id"
         >
           <v-card-title class="subtitle-1 pb-0">
-            {{ review.author }}
+            <v-avatar size="24" class="mr-2" v-if="review.user">
+              <img :src="review.profilePicture" alt="" />
+            </v-avatar>
+            <v-btn @click="goToUserProfile(review.data.userId)">{{ review.data.author }}</v-btn>
           </v-card-title>
           <v-rating
             background-color="grey"
             color="yellow"
             class="px-4"
             length="5"
-            :value="review.rating"
+            :value="review.data.rating"
             half-increments
             readonly
             small
             dense
           ></v-rating>
-          <v-card-text>{{ review.description }}</v-card-text>
+          <v-card-text>{{ review.data.description }}</v-card-text>
         </v-card>
         <p v-if="reviews.length == 0">{{ $t("noreviews") }}</p>
       </v-col>
@@ -95,6 +98,10 @@ export default {
   },
 
   methods: {
+    goToUserProfile(userId) {
+      router.push({ name: "myprofile", params: { userId: userId } });
+    },
+    
     navigateByGenre(genre) {
       router.push({ name: "all-movies-by-genre", params: { genre: genre } });
     },
@@ -134,14 +141,32 @@ export default {
         console.log("Error getting document:", error);
       });
 
-    // load reviews
+    // load reviews with user info
     db.collection("reviews")
       .where("movieId", "==", this.$route.params.movieId)
       .get()
       .then(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
           // doc.data() is never undefined for query doc snapshots
-          vm.reviews.push(doc.data());
+          let review = {};
+          review.data = doc.data();
+
+          // load user infos
+          /*
+          db.collection("users")
+            .doc(doc.data().userId)
+            .get()
+            .then(function (doc) {
+              if (doc.exists) {
+                review.username = doc.data().username;
+                review.profilePicture = doc.data().profilePicture;
+              }
+            });
+          */
+
+          // push review
+          vm.reviews.push(review);
+          //console.log(review);
         });
       })
       .catch(function (error) {

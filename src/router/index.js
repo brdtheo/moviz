@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
+let titleEnd = ' - Moviz';
+
 const routes = [
   {
     path: '/',
@@ -13,13 +15,13 @@ const routes = [
   {
     path: '/all-movies',
     name: 'all-movies',
-    meta: { title: 'All movies - Moviz' },
+    meta: { title: 'All movies' + titleEnd },
     component: () => import('../views/allmovies.vue')
   },
   {
     path: '/all-movies/genre/:genre',
     name: 'all-movies-by-genre',
-    meta: { title: 'All movies - Moviz' },
+    meta: { title: 'All movies' + titleEnd },
     component: () => import('../views/allmoviesbygenre.vue')
   },
   {
@@ -27,6 +29,18 @@ const routes = [
     name: 'movie-detail',
     meta: { title: 'Moviz' },
     component: () => import('../views/moviedetail.vue')
+  },
+  {
+    path: '/login',
+    name: 'login',
+    meta: { title: 'Login' + titleEnd },
+    component: () => import('../views/login.vue')
+  },
+  {
+    path: '/user/:userId',
+    name: 'myprofile',
+    meta: { title: 'User profile' + titleEnd },
+    component: () => import('../views/myprofile.vue')
   },
 ]
 

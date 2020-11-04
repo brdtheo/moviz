@@ -45,6 +45,7 @@
               >
                 <v-icon>mdi-close</v-icon>
               </v-btn>
+
               <v-menu offset-y>
                 <template v-slot:activator="{ attrs, on }">
                   <v-btn
@@ -68,9 +69,32 @@
                   </v-list-item>
                 </v-list>
               </v-menu>
-              <v-btn class="no-active" icon dark to="/login">
+
+              <v-btn v-if="!user" class="no-active" icon dark to="/login">
                 <v-icon>mdi-account</v-icon>
               </v-btn>
+
+              <v-menu offset-y v-if="user">
+                <template v-slot:activator="{ attrs, on }">
+                  <v-btn icon rounded dark v-bind="attrs" v-on="on">
+                    <v-avatar size="32">
+                      <img :src="user.profilePicture" alt="" />
+                    </v-avatar>
+                  </v-btn>
+                </template>
+                <v-list dense>
+                  <v-list-item link @click="goToUserProfile(user.id)">
+                    <v-list-item-title>
+                      {{ $t("myprofile") }}
+                    </v-list-item-title>
+                  </v-list-item>
+                  <v-list-item link @click="logout()">
+                    <v-list-item-title>
+                      {{ $t("logout") }}
+                    </v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
             </div>
           </v-col>
         </v-row>
@@ -126,6 +150,7 @@
 
 <script>
 import router from "../router/index";
+import { auth } from "../firebase";
 import { db } from "../firebase";
 import moviecard from "./moviecard";
 
@@ -158,6 +183,23 @@ export default {
   },
 
   methods: {
+    goToUserProfile(userId) {
+      router.push({ name: "myprofile", params: { userId: userId } });
+    },
+
+    logout() {
+      auth
+        .signOut()
+        .then(function () {
+          // Sign-out successful.
+          router.push("/login");
+        })
+        .catch(function (error) {
+          // An error happened.
+          console.log(error);
+        });
+    },
+
     // i18n
     changeLocale(locale) {
       this.$i18n.locale = locale;
