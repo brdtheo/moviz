@@ -10,9 +10,9 @@
             v-model="userInput.email"
             type="email"
             :label="$t('emailaddress')"
-            filled
             color="indigo"
             dark
+            outlined
             dense
           ></v-text-field>
 
@@ -21,9 +21,9 @@
             v-model="userInput.password"
             type="password"
             :label="$t('password')"
-            filled
             color="indigo"
             dark
+            outlined
             dense
           ></v-text-field>
 
@@ -69,16 +69,15 @@ export default {
           this.userInput.password
         )
         .catch(function (error) {
-          // Handle Errors here.
-          //let errorCode = error.code;
-          let errorMessage = error.message;
-          console.log(errorMessage);
+          if (error) {
+            // Handle Errors here.
+            console.log(error);
+          }
         });
 
       // clear inputs
       this.userInput.email = "";
       this.userInput.password = "";
-
       // redirect
       router.push("/");
     },
