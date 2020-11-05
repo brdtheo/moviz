@@ -28,19 +28,13 @@
       </v-col>
 
       <v-col cols="12" sm="6">
-        <div class="plyr__video-embed" id="trailer">
-          <iframe
-            :src="
-              'https://www.youtube.com/embed/' +
-              //movie.trailerId
-              'bTqVqk7FSmY' +
-              '?origin=https://plyr.io&amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1'
-            "
-            allowfullscreen
-            allowtransparency
-            allow="autoplay"
-          ></iframe>
-        </div>
+        <iframe
+          class="movieTrailer"
+          :src="'https://www.youtube.com/embed/' + movie.trailerId"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
       </v-col>
     </v-row>
 
@@ -61,22 +55,24 @@
         >
           <v-card-title class="subtitle-1 pb-0">
             <v-avatar size="24" class="mr-2" v-if="review.user">
-              <img :src="review.profilePicture" alt="" />
+              <img alt="" />
             </v-avatar>
-            <v-btn @click="goToUserProfile(review.data.userId)">{{ review.data.author }}</v-btn>
+            <span class="pointer" @click="goToUserProfile(review.userId)">{{
+              review.author
+            }}</span>
           </v-card-title>
           <v-rating
             background-color="grey"
             color="yellow"
-            class="px-4"
+            class="px-3"
             length="5"
-            :value="review.data.rating"
+            :value="review.rating"
             half-increments
             readonly
             small
             dense
           ></v-rating>
-          <v-card-text>{{ review.data.description }}</v-card-text>
+          <v-card-text>{{ review.description }}</v-card-text>
         </v-card>
         <p v-if="reviews.length == 0">{{ $t("noreviews") }}</p>
       </v-col>
@@ -86,7 +82,7 @@
 
 <script>
 import router from "../router/index";
-import Plyr from "plyr";
+//import Plyr from "plyr";
 import { db } from "../firebase";
 
 export default {
@@ -101,7 +97,7 @@ export default {
     goToUserProfile(userId) {
       router.push({ name: "myprofile", params: { userId: userId } });
     },
-    
+
     navigateByGenre(genre) {
       router.push({ name: "all-movies-by-genre", params: { genre: genre } });
     },
@@ -120,58 +116,20 @@ export default {
   },
 
   mounted() {
-    new Plyr("#trailer");
+    //new Plyr("#trailer");
   },
 
   created() {
-    let vm = this.$data;
+    let movieId = this.$route.params.movieId;
 
-    // load movie details
-    var docRef = db.collection("movies").doc(this.$route.params.movieId);
-    docRef
-      .get()
-      .then(function (doc) {
-        if (doc.exists) {
-          vm.movie = doc.data();
-        } else {
-          console.log("doc not found");
-        }
-      })
-      .catch(function (error) {
-        console.log("Error getting document:", error);
-      });
+    // load movie infos
+    this.$bind("movie", db.collection("movies").doc(movieId));
 
     // load reviews with user info
-    db.collection("reviews")
-      .where("movieId", "==", this.$route.params.movieId)
-      .get()
-      .then(function (querySnapshot) {
-        querySnapshot.forEach(function (doc) {
-          // doc.data() is never undefined for query doc snapshots
-          let review = {};
-          review.data = doc.data();
-
-          // load user infos
-          /*
-          db.collection("users")
-            .doc(doc.data().userId)
-            .get()
-            .then(function (doc) {
-              if (doc.exists) {
-                review.username = doc.data().username;
-                review.profilePicture = doc.data().profilePicture;
-              }
-            });
-          */
-
-          // push review
-          vm.reviews.push(review);
-          //console.log(review);
-        });
-      })
-      .catch(function (error) {
-        console.log("Error getting documents: ", error);
-      });
+    this.$bind(
+      "reviews",
+      db.collection("reviews").where("movieId", "==", movieId)
+    );
   },
 };
 </script>
@@ -193,5 +151,14 @@ export default {
 
 .movieDescription {
   line-height: 200%;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.movieTrailer {
+  width: 100%;
+  height: 100%;
 }
 </style>
