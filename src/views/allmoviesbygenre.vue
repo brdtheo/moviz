@@ -6,7 +6,7 @@
           {{
             $t("allmoviesbycategory") +
             " " +
-            $t("genre." + currentGenre) +
+            $t("genre." + this.$route.params.genre) +
             ` (${movies.length})`
           }}
         </h2>
@@ -22,14 +22,14 @@
           :key="movie.id"
         >
           <moviecard>
-            <v-img position="top" height="100" :src="movie.data.image"></v-img>
-            <span slot="name">{{ movie.data.name }}</span>
-            <span slot="year">{{ movie.data.year }}</span>
+            <v-img position="top" height="100" :src="movie.image"></v-img>
+            <span slot="name">{{ movie.name }}</span>
+            <span slot="year">{{ movie.year }}</span>
             <span slot="description" v-if="$i18n.locale == 'en'">
-              {{ movie.data.description.en.substring(0, 97) + "..." }}
+              {{ movie.description.en.substring(0, 97) + "..." }}
             </span>
             <span slot="description" v-if="$i18n.locale == 'fr'">
-              {{ movie.data.description.fr.substring(0, 97) + "..." }}
+              {{ movie.description.fr.substring(0, 97) + "..." }}
             </span>
             <div slot="actions">
               <v-btn @click="navigate(movie.id)" color="indigo" dark small>
@@ -52,7 +52,6 @@ export default {
   data: () => {
     return {
       movies: [],
-      currentGenre: "",
     };
   },
 
@@ -67,28 +66,11 @@ export default {
   },
 
   created() {
-    // set genre
-    this.currentGenre = this.$route.params.genre;
-
     // load movies by genre
-    let vm = this.$data;
-
-    // load movie details
-    db.collection("movies")
-      .where("genre", "array-contains-any", [this.$route.params.genre])
-      .get()
-      .then(function (querySnapshot) {
-        querySnapshot.forEach(function (doc) {
-          let movie = {
-            id: doc.id,
-            data: doc.data(),
-          };
-          vm.movies.push(movie);
-        });
-      })
-      .catch(function (error) {
-        console.log("Error getting documents: ", error);
-      });
+    this.$bind(
+      "movies",
+      db.collection("movies").where("genre", "array-contains-any", [this.$route.params.genre])
+    );
   },
 };
 </script>
