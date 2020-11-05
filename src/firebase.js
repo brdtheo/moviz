@@ -4,7 +4,7 @@ import 'firebase/auth'
 
 // Initialize Firebase
 var config = {
-    apiKey: "...",
+    apiKey: "...u",
     projectId: "brdtheo-moviz",
 };
 firebase.initializeApp(config);
