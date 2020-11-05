@@ -2,9 +2,6 @@
 node_modules
 /dist
 
-# firebase config
-src/firebase.js
-
 # local env files
 .env.local
 .env.*.local
@@ -24,3 +21,4 @@ pnpm-debug.log*
 *.sln
 *.sw?
 *.sh
+src/firebase.js
