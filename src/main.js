@@ -7,13 +7,13 @@ import { db } from "./firebase"
 // vuetify
 import vuetify from './plugins/vuetify';
 
-// firestore
+// vuefire
 import { firestorePlugin } from 'vuefire'
+Vue.use(firestorePlugin)
 
 // i18n
 import i18n from "./i18n";
 
-Vue.use(firestorePlugin)
 
 Vue.config.productionTip = false
 
