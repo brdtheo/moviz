@@ -10,9 +10,7 @@
       <v-row>
         <v-col
           sm="4"
-          md="4"
-          lg="3"
-          xl="2"
+          md="3"
           class="col-12"
           v-for="movie in movies"
           :key="movie.id"

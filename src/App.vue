@@ -28,4 +28,8 @@ export default {
 .v-btn--active.no-active::before {
   opacity: 0 !important;
 }
+
+.container {
+  max-width: 1200px;
+}
 </style>
