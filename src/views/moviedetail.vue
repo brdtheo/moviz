@@ -6,13 +6,94 @@
         <h1 class="font-weight-regular ma-0">{{ movie.name }}</h1>
 
         <div class="my-5">
-          <h4 class="font-weight-medium">{{ $t("length") }}</h4>
-          <p class="subtitle-2 font-weight-regular">{{ movie.length }}</p>
-          <h4 class="font-weight-medium">{{ $t("year") }}</h4>
-          <p class="subtitle-2 font-weight-regular">{{ movie.year }}</p>
+          <v-row>
+            <v-col>
+              <h4 class="font-weight-medium">{{ $t("length") }}</h4>
+              <p class="subtitle-2 font-weight-regular" v-if="movie.length">
+                {{ movie.length }}
+              </p>
+            </v-col>
+            <v-col>
+              <h4 class="font-weight-medium">{{ $t("year") }}</h4>
+              <p class="subtitle-2 font-weight-regular" v-if="movie.year">
+                {{ movie.year }}
+              </p>
+            </v-col>
+            <v-col>
+              <h4 class="font-weight-medium">{{ $t("metacriticscore") }}</h4>
+              <p
+                class="subtitle-2 font-weight-regular metacritic"
+                v-if="movie.score"
+              >
+                {{ movie.score.metacritic }}
+              </p>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col>
+              <h4 class="font-weight-medium">{{ $t("country") }}</h4>
+              <p class="subtitle-2 font-weight-regular">USA</p>
+            </v-col>
+            <v-col>
+              <h4 class="font-weight-medium">{{ $t("producers") }}</h4>
+              <p class="subtitle-2 font-weight-regular" v-if="movie.producers">
+                <span
+                  class="comma"
+                  v-for="producer in movie.producers"
+                  :key="producer"
+                >
+                  {{ producer }}
+                </span>
+              </p>
+            </v-col>
+            <v-col>
+              <h4 class="font-weight-medium">{{ $t("watchnow") }}</h4>
+              <div v-if="movie.links">
+                <movieLink
+                  v-if="movie.links.youtube"
+                  color="#c4302b"
+                  :url="movie.links.youtube"
+                  icon="youtube"
+                >
+                  youtube
+                </movieLink>
+                <movieLink
+                  v-if="movie.links.googlePlay"
+                  color="#b3c833"
+                  :url="movie.links.googlePlay"
+                  icon="google-play"
+                >
+                  google play
+                </movieLink>
+                <movieLink
+                  v-if="movie.links.amazonPrime"
+                  color="#00a8e1"
+                  :url="movie.links.amazonPrime"
+                  icon="amazon"
+                >
+                  prime
+                </movieLink>
+                <movieLink
+                  v-if="movie.links.netflix"
+                  color="#E50914"
+                  :url="movie.links.netflix"
+                  icon="netflix"
+                >
+                  netflix
+                </movieLink>
+                <movieLink
+                  v-if="movie.links.disneyPlus"
+                  color="#113CCF"
+                  :url="movie.links.disneyPlus"
+                >
+                  disney+
+                </movieLink>
+              </div>
+            </v-col>
+          </v-row>
         </div>
 
-        <div>
+        <div v-if="movie.genre">
           <v-chip
             class="mt-1 mr-1 mb-1 movie-detail-genre font-weight-bold"
             color="indigo"
@@ -46,7 +127,7 @@
 
     <v-row class="mt-15 mb-0">
       <v-col>
-        <h2 class="font-weight-light mb-2">{{ $t("userreviews") }}</h2>
+        <h3 class="mb-2">{{ $t("userreviews") }}</h3>
         <v-card
           class="grey darken-3"
           dark
@@ -84,6 +165,7 @@
 import router from "../router/index";
 //import Plyr from "plyr";
 import { db } from "../firebase";
+import movieLink from "../components/movielink";
 
 export default {
   data: () => {
@@ -91,6 +173,10 @@ export default {
       movie: {},
       reviews: [],
     };
+  },
+
+  components: {
+    movieLink,
   },
 
   methods: {
@@ -160,5 +246,17 @@ export default {
 .movieTrailer {
   width: 100%;
   height: 100%;
+}
+
+.metacritic::after {
+  content: "%";
+}
+
+.comma::after {
+  content: ", ";
+}
+
+.comma:last-of-type:after {
+  content: "";
 }
 </style>

@@ -25,10 +25,16 @@
         "comedy": "comedy",
         "adaptation": "adaptation",
         "psychological thriller": "psychological thriller",
-        "narrative": "narrative"
+        "narrative": "narrative",
+        "satire": "satire",
+        "dark comedy": "dark comedy"
     },
     "length": "Length",
     "year": "Year",
+    "producers": "Producer(s)",
+    "country": "Country",
+    "metacriticscore": "Metacritic score",
+    "watchnow": "Watch now",
     "userreviews": "User reviews",
     "noreviews": "There are no reviews available for this movie.",
     "login": "Login",
