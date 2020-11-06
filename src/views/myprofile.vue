@@ -66,7 +66,7 @@ export default {
     // load reviews
     this.$bind(
       "userReviews",
-      db.collection("reviews").where("userId", "==", userId)
+      db.collection("reviews").where("userId", "==", userId).orderBy("date", "desc")
     );
   },
 };
