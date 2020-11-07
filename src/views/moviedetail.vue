@@ -24,7 +24,9 @@
               <p
                 class="subtitle-2 font-weight-regular percent"
                 v-if="movie.score"
-              >{{ movie.score.metacritic }}</p>
+              >
+                {{ movie.score.metacritic }}
+              </p>
             </v-col>
           </v-row>
           <v-row>
@@ -35,11 +37,9 @@
             <v-col>
               <h4 class="font-weight-medium">{{ $t("producers") }}</h4>
               <p class="subtitle-2 font-weight-regular" v-if="movie.producers">
-                <span
-                  class="comma"
-                  v-for="producer in movie.producers"
-                  :key="producer"
-                >{{ producer }}</span>
+                <span class="comma" v-for="(producer, index) in movie.producers" :key="index">
+                    <span>{{ producer }}</span>
+                </span>
               </p>
             </v-col>
             <v-col>

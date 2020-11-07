@@ -50,7 +50,7 @@ export default {
   content: ", ";
 }
 
-.comma:last-of-type:after {
+.comma:last-of-type::after {
   content: "";
 }
 
