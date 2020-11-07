@@ -110,38 +110,30 @@
         <v-col v-if="queryResult.length == 0">{{ $t("noresult") }}</v-col>
         <v-col
           sm="4"
-          md="4"
-          lg="3"
-          xl="2"
+          md="3"
           class="col-12"
           v-for="movie in queryResult"
           :key="movie.id"
           v-else
         >
-          <moviecard>
-            <v-img position="top" height="100" :src="movie.data.image"></v-img>
-            <span slot="name">{{ movie.data.name }}</span>
-            <span slot="year">{{ movie.data.year }}</span>
-            <span slot="description" v-if="$i18n.locale == 'en'">
-              {{ movie.data.description.en.substring(0, 97) + "..." }}
-            </span>
-            <span slot="description" v-if="$i18n.locale == 'fr'">
-              {{ movie.data.description.fr.substring(0, 97) + "..." }}
-            </span>
-            <div slot="actions">
-              <v-btn
-                @click="
-                  toggleSearchMode();
-                  navigate(movie.id);
-                "
-                color="indigo"
-                dark
-                small
-              >
-                infos
-              </v-btn>
-            </div>
-          </moviecard>
+          <moviecard
+            :image="movie.image"
+            :name="movie.name"
+            :year="movie.year"
+            :description="movie.description.en"
+            :movieId="movie.id"
+            v-if="movie.description && $i18n.locale == 'en'"
+            @event="toggleSearchMode()"
+          />
+          <moviecard
+            :image="movie.image"
+            :name="movie.name"
+            :year="movie.year"
+            :description="movie.description.fr"
+            :movieId="movie.id"
+            v-if="movie.description && $i18n.locale == 'fr'"
+            @event="toggleSearchMode()"
+          />
         </v-col>
       </v-row>
     </v-container>
@@ -219,24 +211,12 @@ export default {
     },
 
     querySearch(input) {
-      let vm = this.$data;
-      vm.queryResult = [];
+      this.queryResult = [];
 
-      db.collection("movies")
-        .where("name", "==", input)
-        .get()
-        .then(function (querySnapshot) {
-          querySnapshot.forEach(function (doc) {
-            let movie = {
-              id: doc.id,
-              data: doc.data(),
-            };
-            vm.queryResult.push(movie);
-          });
-        })
-        .catch(function (error) {
-          console.log("Error getting documents: ", error);
-        });
+      this.$bind(
+        "queryResult",
+        db.collection("movies").where("name", "==", input)
+      );
     },
   },
 };
