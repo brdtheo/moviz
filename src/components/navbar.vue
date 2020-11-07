@@ -17,10 +17,10 @@
                 <v-text-field
                   @keyup.esc="toggleSearchMode"
                   @input="querySearch(searchField)"
-                  color="indigo"
-                  dark
                   dense
-                  flat
+                  background-color="grey darken-3"
+                  solo
+                  dark
                   hide-details="auto"
                   autofocus
                   v-model="searchField"
@@ -83,7 +83,16 @@
                   </v-btn>
                 </template>
                 <v-list dense>
-                  <v-list-item link @click="goToUserProfile(user.id)">
+                  <v-list-item
+                    class="indigo"
+                    dark
+                    link
+                    v-if="user.role && user.role == 'superadmin'"
+                    @click="goToRoute('back-office')"
+                  >
+                    <v-list-item-title> superadmin </v-list-item-title>
+                  </v-list-item>
+                  <v-list-item link @click="goToRoute('my-profile')">
                     <v-list-item-title>
                       {{ $t("myprofile") }}
                     </v-list-item-title>
@@ -175,8 +184,9 @@ export default {
   },
 
   methods: {
-    goToUserProfile(userId) {
-      router.push({ name: "myprofile", params: { userId: userId } });
+    goToRoute(routeName) {
+      let userId = this.user.id;
+      router.push({ name: routeName, params: { userId: userId } });
     },
 
     logout() {
@@ -229,10 +239,6 @@ export default {
 
 .w-100 {
   width: 100%;
-}
-
-.v-btn--active.no-active::before {
-  opacity: 0 !important;
 }
 
 .v-app-bar {

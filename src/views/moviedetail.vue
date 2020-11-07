@@ -24,9 +24,7 @@
               <p
                 class="subtitle-2 font-weight-regular percent"
                 v-if="movie.score"
-              >
-                {{ movie.score.metacritic }}
-              </p>
+              >{{ movie.score.metacritic }}</p>
             </v-col>
           </v-row>
           <v-row>
@@ -41,9 +39,7 @@
                   class="comma"
                   v-for="producer in movie.producers"
                   :key="producer"
-                >
-                  {{ producer }}
-                </span>
+                >{{ producer }}</span>
               </p>
             </v-col>
             <v-col>
@@ -181,7 +177,7 @@ export default {
 
   methods: {
     goToUserProfile(userId) {
-      router.push({ name: "myprofile", params: { userId: userId } });
+      router.push({ name: "my-profile", params: { userId: userId } });
     },
 
     navigateByGenre(genre) {

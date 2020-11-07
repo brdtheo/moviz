@@ -20,13 +20,18 @@ export default {
   components: {
     navbar,
     mfooter,
-  },
+  }
 };
 </script>
 
 <style>
 :root {
   --plyr-color-main: #3f51b5;
+  --indigo: #3f51b5;
+}
+
+.border-indigo {
+  border: solid 2px var(--indigo);
 }
 
 .w-100 {
@@ -48,6 +53,7 @@ export default {
 .comma:last-of-type:after {
   content: "";
 }
+
 .v-btn--active.no-active::before {
   opacity: 0 !important;
 }
