@@ -42,12 +42,11 @@
 </template>
 
 <script>
-import router from "../router/index";
 import moviecard from "../components/moviecard";
 import { db } from "../firebase";
 
 export default {
-  data: () => {
+  data() {
     return {
       movies: [],
     };
@@ -57,14 +56,7 @@ export default {
     moviecard,
   },
 
-  methods: {
-    navigate: (movieId) => {
-      router.push({ name: "movie-detail", params: { movieId: movieId } });
-    },
-  },
-
   created() {
-    // load movies by genre
     this.$bind(
       "movies",
       db.collection("movies").where("genre", "array-contains-any", [this.$route.params.genre])

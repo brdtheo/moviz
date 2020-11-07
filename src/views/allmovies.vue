@@ -37,7 +37,6 @@
 </template>
 
 <script>
-import router from "../router/index";
 import moviecard from "../components/moviecard";
 import { db } from "../firebase";
 
@@ -46,17 +45,12 @@ export default {
     moviecard,
   },
 
-  data: () => {
+  data() {
     return {
       movies: {},
     };
   },
 
-  methods: {
-    navigate: (movieId) => {
-      router.push({ name: "movie-detail", params: { movieId: movieId } });
-    },
-  },
 
   firestore: {
     movies: db.collection("movies").orderBy("name"),

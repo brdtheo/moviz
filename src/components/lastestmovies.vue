@@ -38,7 +38,6 @@
 </template>
 
 <script>
-import router from "../router/index";
 import moviecard from "./moviecard";
 import { db } from "../firebase";
 
@@ -49,19 +48,15 @@ export default {
     moviecard,
   },
 
-  data: () => {
+  data() {
     return {
       movies: {},
     };
   },
 
   methods: {
-    returnlocale: () => {
+    returnlocale() {
       return this.$i18n.locale;
-    },
-
-    navigate: (movieId) => {
-      router.push({ name: "movie-detail", params: { movieId: movieId } });
     },
   },
 

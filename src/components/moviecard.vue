@@ -46,10 +46,7 @@ export default {
     movieId: {
       type: String,
       required: true,
-    },
-    toggleSearchMode: {
-      type: Boolean,
-    },
+    }
   },
 
   methods: {

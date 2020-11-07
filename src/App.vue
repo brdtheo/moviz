@@ -25,6 +25,29 @@ export default {
 </script>
 
 <style>
+:root {
+  --plyr-color-main: #3f51b5;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.percent::after {
+  content: "%";
+}
+
+.comma::after {
+  content: ", ";
+}
+
+.comma:last-of-type:after {
+  content: "";
+}
 .v-btn--active.no-active::before {
   opacity: 0 !important;
 }

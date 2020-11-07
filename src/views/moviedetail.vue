@@ -22,7 +22,7 @@
             <v-col>
               <h4 class="font-weight-medium">{{ $t("metacriticscore") }}</h4>
               <p
-                class="subtitle-2 font-weight-regular metacritic"
+                class="subtitle-2 font-weight-regular percent"
                 v-if="movie.score"
               >
                 {{ movie.score.metacritic }}
@@ -208,10 +208,8 @@ export default {
   created() {
     let movieId = this.$route.params.movieId;
 
-    // load movie infos
     this.$bind("movie", db.collection("movies").doc(movieId));
 
-    // load reviews with user info
     this.$bind(
       "reviews",
       db.collection("reviews").where("movieId", "==", movieId)
@@ -221,14 +219,6 @@ export default {
 </script>
 
 <style>
-:root {
-  --plyr-color-main: #3f51b5;
-}
-
-.w-100 {
-  width: 100%;
-}
-
 .trailer iframe {
   outline: none !important;
   border: none !important;
@@ -239,24 +229,8 @@ export default {
   line-height: 200%;
 }
 
-.pointer {
-  cursor: pointer;
-}
-
 .movieTrailer {
   width: 100%;
   height: 100%;
-}
-
-.metacritic::after {
-  content: "%";
-}
-
-.comma::after {
-  content: ", ";
-}
-
-.comma:last-of-type:after {
-  content: "";
 }
 </style>
