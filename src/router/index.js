@@ -38,9 +38,15 @@ const routes = [
   },
   {
     path: '/user/:userId',
-    name: 'myprofile',
+    name: 'my-profile',
     meta: { title: 'User profile' + titleEnd },
     component: () => import('../views/myprofile.vue')
+  },
+  {
+    path: '/admin/:userId',
+    name: 'back-office',
+    meta: { title: 'admin' + titleEnd },
+    component: () => import('../views/admin.vue')
   },
 ]
 

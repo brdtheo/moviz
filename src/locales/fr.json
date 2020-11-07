@@ -44,5 +44,8 @@
     "register": "s'enregistrer",
     "logout": "Se déconnecter",
     "myprofile": "Mon profil",
-    "writtenreviews": "avis rédigés"
+    "writtenreviews": "avis rédigés",
+    "addamovie": "Ajouter un film",
+    "name": "Nom",
+    "add": "Ajouter"
 }

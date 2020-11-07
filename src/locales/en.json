@@ -44,5 +44,8 @@
     "register": "register",
     "logout": "Logout",
     "myprofile": "My profile",
-    "writtenreviews": "written reviews"
+    "writtenreviews": "written reviews",
+    "addamovie": "Add a movie",
+    "name": "Name",
+    "add": "Ajouter"
 }
