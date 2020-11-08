@@ -46,7 +46,7 @@
                 <v-icon>mdi-close</v-icon>
               </v-btn>
 
-              <v-menu offset-y>
+              <v-menu offset-y left>
                 <template v-slot:activator="{ attrs, on }">
                   <v-btn
                     class="languageBtn no-active"
@@ -74,7 +74,7 @@
                 <v-icon>mdi-account</v-icon>
               </v-btn>
 
-              <v-menu offset-y v-if="user">
+              <v-menu offset-y left v-if="user">
                 <template v-slot:activator="{ attrs, on }">
                   <v-btn icon rounded dark v-bind="attrs" v-on="on">
                     <v-avatar size="32">

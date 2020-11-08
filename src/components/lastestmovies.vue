@@ -1,39 +1,37 @@
 <template>
   <div class="py-8 py-sm-16">
-    <v-container class="pa-0">
-      <div class="mb-5 d-flex justify-space-between align-center">
-        <h2 class="font-weight-light">{{ $t("lastestmovies") }}</h2>
-        <v-btn x-small text class="white--text" to="all-movies">
-          {{ $t("allmovies") }}
-        </v-btn>
-      </div>
-      <v-row>
-        <v-col
-          sm="4"
-          md="3"
-          class="col-12"
-          v-for="movie in movies"
-          :key="movie.id"
-        >
-          <moviecard
-            :image="movie.image"
-            :name="movie.name"
-            :year="movie.year"
-            :description="movie.description.en"
-            :movieId="movie.id"
-            v-if="$i18n.locale == 'en'"
-          />
-          <moviecard
-            :image="movie.image"
-            :name="movie.name"
-            :year="movie.year"
-            :description="movie.description.fr"
-            :movieId="movie.id"
-            v-if="$i18n.locale == 'fr'"
-          />
-        </v-col>
-      </v-row>
-    </v-container>
+    <div class="mb-5 d-flex justify-space-between align-center">
+      <h2 class="font-weight-light">{{ $t("lastestmovies") }}</h2>
+      <v-btn x-small text class="white--text" to="all-movies">
+        {{ $t("allmovies") }}
+      </v-btn>
+    </div>
+    <v-row>
+      <v-col
+        sm="4"
+        md="3"
+        class="col-12"
+        v-for="movie in movies"
+        :key="movie.id"
+      >
+        <moviecard
+          :image="movie.image"
+          :name="movie.name"
+          :year="movie.year"
+          :description="movie.description.en"
+          :movieId="movie.id"
+          v-if="$i18n.locale == 'en'"
+        />
+        <moviecard
+          :image="movie.image"
+          :name="movie.name"
+          :year="movie.year"
+          :description="movie.description.fr"
+          :movieId="movie.id"
+          v-if="$i18n.locale == 'fr'"
+        />
+      </v-col>
+    </v-row>
   </div>
 </template>
 

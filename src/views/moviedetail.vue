@@ -71,7 +71,7 @@
                 </movieLink>
                 <movieLink
                   v-if="movie.links.netflix"
-                  color="#E50914"
+                  color="#e50914"
                   :url="movie.links.netflix"
                   icon="netflix"
                 >
@@ -79,7 +79,7 @@
                 </movieLink>
                 <movieLink
                   v-if="movie.links.disneyPlus"
-                  color="#113CCF"
+                  color="#113ccf"
                   :url="movie.links.disneyPlus"
                 >
                   disney+
