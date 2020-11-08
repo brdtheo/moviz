@@ -2,7 +2,7 @@
     "language": "langue",
     "search": "Votre recherche",
     "noresult": "Aucun résultat.",
-    "lastestmovies": "Derniers films",
+    "latestmovies": "Derniers films",
     "allmovies": "Tous les films",
     "allmoviesbycategory": "Tous les films dans la catégorie",
     "genre": {
@@ -47,6 +47,6 @@
     "writtenreviews": "avis rédigés",
     "addamovie": "Ajouter un film",
     "name": "Nom",
-    "add": "Ajouter",
+    "add": "ajouter",
     "sort": "trier"
 }

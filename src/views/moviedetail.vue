@@ -193,6 +193,9 @@ export default {
         if (this.$i18n.locale == "fr") {
           return vm.movie.description.fr;
         }
+        if (this.$i18n.locale == "jp") {
+          return vm.movie.description.jp;
+        }
       }
     },
   },

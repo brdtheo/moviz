@@ -22,10 +22,14 @@
           </template>
           <v-list dense>
             <v-list-item link @click="$emit('sort', 'ascendingName')">
-              <v-list-item-title> {{ $t("name") }}: a > z </v-list-item-title>
+              <v-list-item-title>
+                {{ `${$t("name")} : A > Z` }}
+              </v-list-item-title>
             </v-list-item>
             <v-list-item link @click="$emit('sort', 'descendingName')">
-              <v-list-item-title>{{ $t("name") }}: z > a</v-list-item-title>
+              <v-list-item-title>{{
+                `${$t("name")} : Z > A`
+              }}</v-list-item-title>
             </v-list-item>
           </v-list>
         </v-menu>

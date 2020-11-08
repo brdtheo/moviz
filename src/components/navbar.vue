@@ -179,6 +179,10 @@ export default {
           name: "français",
           abbr: "fr",
         },
+        {
+          name: "日本人",
+          abbr: "jp",
+        },
       ],
     };
   },

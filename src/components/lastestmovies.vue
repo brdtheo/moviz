@@ -1,7 +1,7 @@
 <template>
   <div class="py-8 py-sm-16">
     <div class="mb-5 d-flex justify-space-between align-center">
-      <h2 class="font-weight-light">{{ $t("lastestmovies") }}</h2>
+      <h2 class="font-weight-light">{{ $t("latestmovies") }}</h2>
       <v-btn x-small text class="white--text" to="all-movies">
         {{ $t("allmovies") }}
       </v-btn>
@@ -29,6 +29,14 @@
           :description="movie.description.fr"
           :movieId="movie.id"
           v-if="$i18n.locale == 'fr'"
+        />
+        <moviecard
+          :image="movie.image"
+          :name="movie.name"
+          :year="movie.year"
+          :description="movie.description.jp"
+          :movieId="movie.id"
+          v-if="$i18n.locale == 'jp'"
         />
       </v-col>
     </v-row>

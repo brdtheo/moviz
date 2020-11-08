@@ -2,7 +2,7 @@
     "language": "language",
     "search": "Your search",
     "noresult": "No result.",
-    "lastestmovies": "Lastest movies",
+    "latestmovies": "Latest movies",
     "allmovies": "All movies",
     "allmoviesbycategory": "All movies in category",
     "genre": {
@@ -20,7 +20,7 @@
         "crime film": "crime film",
         "fantasy": "fantasy",
         "supernatural": "supernatural",
-        "psychological horror": "phychological horror",
+        "psychological horror": "psychological horror",
         "romance": "romance",
         "comedy": "comedy",
         "adaptation": "adaptation",
@@ -47,6 +47,6 @@
     "writtenreviews": "written reviews",
     "addamovie": "Add a movie",
     "name": "Name",
-    "add": "Ajouter",
+    "add": "add",
     "sort": "sort"
 }

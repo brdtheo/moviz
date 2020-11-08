@@ -35,6 +35,14 @@
           :movieId="movie.id"
           v-if="movie.description && $i18n.locale == 'fr'"
         />
+        <moviecard
+          :image="movie.image"
+          :name="movie.name"
+          :year="movie.year"
+          :description="movie.description.jp"
+          :movieId="movie.id"
+          v-if="movie.description && $i18n.locale == 'jp'"
+        />
       </v-col>
     </v-row>
   </div>

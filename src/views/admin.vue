@@ -201,7 +201,7 @@
               </v-col>
             </v-row>
 
-            <v-btn @click="addDocument()" dark color="indigo">
+            <v-btn small @click="addDocument()" dark color="indigo">
               {{ $t("add") }}
             </v-btn>
           </div>
