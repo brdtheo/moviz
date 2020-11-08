@@ -11,7 +11,21 @@
         {{ $t("allmovies") + ` (${movies.length})` }}
       </h2>
     </div>
-    <v-row>
+    <v-row v-if="loading">
+      <v-col sm="4" md="3" class="col-12">
+        <MovieCardPlaceholder />
+      </v-col>
+      <v-col sm="4" md="3" class="col-12">
+        <MovieCardPlaceholder />
+      </v-col>
+      <v-col sm="4" md="3" class="col-12">
+        <MovieCardPlaceholder />
+      </v-col>
+      <v-col sm="4" md="3" class="col-12">
+        <MovieCardPlaceholder />
+      </v-col>
+    </v-row>
+    <v-row v-else>
       <v-col
         sm="4"
         md="3"
@@ -49,6 +63,7 @@
 </template>
 
 <script>
+import MovieCardPlaceholder from "../components/placeholders/MovieCardPlaceholder";
 import filtermovies from "../components/filtermovies";
 import moviecard from "../components/moviecard";
 import { db } from "../firebase";
@@ -57,11 +72,13 @@ export default {
   components: {
     moviecard,
     filtermovies,
+    MovieCardPlaceholder,
   },
 
   data() {
     return {
-      movies: {},
+      movies: [],
+      loading: true,
 
       // filters
       displayNetflixOnly: false,
@@ -71,20 +88,28 @@ export default {
   methods: {
     enableNetflixOnly() {
       if (!this.displayNetflixOnly) {
+        this.loading = true;
         this.displayNetflixOnly = true;
         this.$bind(
           "movies",
           db.collection("movies").where("links.netflix", "!=", "")
-        );
+        ).then(() => {
+          this.loading = false;
+        });
       }
     },
 
     disableNetflixOnly() {
+      this.loading = true;
       this.displayNetflixOnly = false;
-      this.$bind("movies", db.collection("movies").orderBy("name"));
+      this.$bind("movies", db.collection("movies").orderBy("name")).then(() => {
+        this.loading = false;
+      });
     },
 
     sort(options) {
+      let vm = this.$data;
+
       if (this.displayNetflixOnly) {
         if (options == "ascendingName") {
           console.log("netflix + ascending name");
@@ -96,18 +121,32 @@ export default {
       if (!this.displayNetflixOnly) {
         if (options == "ascendingName") {
           console.log("no netflix + ascending name");
-          this.$bind("movies", db.collection("movies").orderBy("name", "asc"));
+          vm.loading = true;
+          this.$bind(
+            "movies",
+            db.collection("movies").orderBy("name", "asc")
+          ).then(() => {
+            vm.loading = false;
+          });
         }
         if (options == "descendingName") {
           console.log("no netflix + descending name");
-          this.$bind("movies", db.collection("movies").orderBy("name", "desc"));
+          vm.loading = true;
+          this.$bind(
+            "movies",
+            db.collection("movies").orderBy("name", "desc")
+          ).then(() => {
+            vm.loading = false;
+          });
         }
       }
     },
   },
 
   created() {
-    this.$bind("movies", db.collection("movies"));
+    this.$bind("movies", db.collection("movies")).then(() => {
+      this.loading = false;
+    });
   },
 };
 </script>

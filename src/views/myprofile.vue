@@ -2,23 +2,36 @@
   <div>
     <v-row justify="start" justify-sm="center">
       <v-col cols="12" class="d-flex">
+        <span class="placeholder placeholder__profilepicture" v-if="loading"></span>
         <v-img
           :src="userInfos.profilePicture"
           height="128"
           max-width="128"
           class="rounded"
+          v-else
         ></v-img>
 
         <div class="ml-5 d-flex flex-column">
-          <h1>{{ userInfos.username }}</h1>
-          <p>{{ userReviews.length + " " + $t("writtenreviews") }}</p>
+          <h1 class="placeholder placeholder__name mb-2" v-if="loading"></h1>
+          <h1 v-else>{{ userInfos.username }}</h1>
+          <span class="placeholder placeholder__rating" v-if="loading"></span>
+          <p class="mb-0" v-else>
+            {{ userReviews.length + " " + $t("writtenreviews") }}
+          </p>
         </div>
       </v-col>
     </v-row>
     <v-row class="mt-10">
-      <v-col cols="12" v-for="review in userReviews" :key="review.id">
+      <v-col cols="12" v-if="loading">
+        <ReviewPlaceholder />
+      </v-col>
+      <v-col cols="12" v-for="review in userReviews" :key="review.id" v-else>
         <v-card class="grey darken-3 review" dark>
-          <v-card-title class="pb-0 pointer" @click="navigateToMovie(review.movieId)">{{review.movieName}}</v-card-title>
+          <v-card-title
+            class="pb-0 pointer"
+            @click="navigateToMovie(review.movieId)"
+            >{{ review.movieName }}</v-card-title
+          >
           <v-rating
             background-color="grey"
             color="yellow"
@@ -39,12 +52,19 @@
 </template>
 
 <script>
+import ReviewPlaceholder from "../components/placeholders/ReviewPlaceholder";
 import router from "../router/index";
 import { db } from "../firebase";
 
 export default {
+  components: {
+    ReviewPlaceholder,
+  },
+
   data: () => {
     return {
+      loading: true,
+
       // public infos
       userInfos: {},
       userReviews: [],
@@ -60,14 +80,17 @@ export default {
   created() {
     let userId = this.$route.params.userId;
 
-    // load user infos
     this.$bind("userInfos", db.collection("users").doc(userId));
 
-    // load reviews
     this.$bind(
       "userReviews",
-      db.collection("reviews").where("userId", "==", userId).orderBy("date", "desc")
-    );
+      db
+        .collection("reviews")
+        .where("userId", "==", userId)
+        .orderBy("date", "desc")
+    ).then(() => {
+      this.loading = false;
+    });
   },
 };
 </script>

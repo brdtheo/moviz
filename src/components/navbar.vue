@@ -156,7 +156,7 @@ import { db } from "../firebase";
 import moviecard from "./moviecard";
 
 export default {
-  name: "navbar",
+  name: "Navbar",
 
   components: {
     moviecard,
@@ -164,6 +164,8 @@ export default {
 
   data: () => {
     return {
+      loading: true,
+
       searchMode: false,
       searchField: "",
       queryResult: [],
@@ -237,14 +239,6 @@ export default {
 </script>
 
 <style scoped>
-.languageBtn {
-  align-self: center;
-}
-
-.w-100 {
-  width: 100%;
-}
-
 .v-app-bar {
   position: relative !important;
 }

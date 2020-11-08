@@ -26,7 +26,7 @@
 
 <script>
 export default {
-  name: "mfooter",
+  name: "Footer",
 
   data: () => {
     return {

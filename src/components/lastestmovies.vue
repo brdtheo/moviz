@@ -6,7 +6,21 @@
         {{ $t("allmovies") }}
       </v-btn>
     </div>
-    <v-row>
+    <v-row v-if="loading">
+      <v-col sm="4" md="3" class="col-12">
+        <MovieCardPlaceholder />
+      </v-col>
+      <v-col sm="4" md="3" class="col-12">
+        <MovieCardPlaceholder />
+      </v-col>
+      <v-col sm="4" md="3" class="col-12">
+        <MovieCardPlaceholder />
+      </v-col>
+      <v-col sm="4" md="3" class="col-12">
+        <MovieCardPlaceholder />
+      </v-col>
+    </v-row>
+    <v-row v-else>
       <v-col
         sm="4"
         md="3"
@@ -44,6 +58,7 @@
 </template>
 
 <script>
+import MovieCardPlaceholder from "./placeholders/MovieCardPlaceholder";
 import moviecard from "./moviecard";
 import { db } from "../firebase";
 
@@ -52,11 +67,13 @@ export default {
 
   components: {
     moviecard,
+    MovieCardPlaceholder,
   },
 
   data() {
     return {
-      movies: {},
+      movies: [],
+      loading: true,
     };
   },
 
@@ -66,8 +83,13 @@ export default {
     },
   },
 
-  firestore: {
-    movies: db.collection("movies").orderBy("uploadDate", "desc").limit(5),
+  created() {
+    this.$bind(
+      "movies",
+      db.collection("movies").orderBy("uploadDate", "desc").limit(4)
+    ).then(() => {
+      this.loading = false;
+    });
   },
 };
 </script>

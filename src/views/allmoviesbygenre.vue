@@ -11,7 +11,21 @@
           }}
         </h2>
       </div>
-      <v-row>
+      <v-row v-if="loading">
+        <v-col sm="4" md="3" class="col-12">
+          <MovieCardPlaceholder />
+        </v-col>
+        <v-col sm="4" md="3" class="col-12">
+          <MovieCardPlaceholder />
+        </v-col>
+        <v-col sm="4" md="3" class="col-12">
+          <MovieCardPlaceholder />
+        </v-col>
+        <v-col sm="4" md="3" class="col-12">
+          <MovieCardPlaceholder />
+        </v-col>
+      </v-row>
+      <v-row v-else>
         <v-col
           sm="4"
           md="3"
@@ -50,6 +64,7 @@
 </template>
 
 <script>
+import MovieCardPlaceholder from "../components/placeholders/MovieCardPlaceholder";
 import moviecard from "../components/moviecard";
 import { db } from "../firebase";
 
@@ -57,18 +72,25 @@ export default {
   data() {
     return {
       movies: [],
+
+      loading: true,
     };
   },
 
   components: {
     moviecard,
+    MovieCardPlaceholder,
   },
 
   created() {
     this.$bind(
       "movies",
-      db.collection("movies").where("genre", "array-contains-any", [this.$route.params.genre])
-    );
+      db
+        .collection("movies")
+        .where("genre", "array-contains-any", [this.$route.params.genre])
+    ).then(() => {
+      this.loading = false;
+    });
   },
 };
 </script>
