@@ -18,16 +18,19 @@ import i18n from "./i18n";
 Vue.config.productionTip = false
 
 Vue.mixin({
-  data: function () {
+  data() {
     return {
-      user: null
+      user: null,
+
+      userLoading: false,
     }
   },
 
   created() {
-    var vm = this.$data;
-
+    var vm = this;
     auth.onAuthStateChanged(function (user) {
+      vm.userLoading = true;
+
       if (user) {
         // User is signed in.
         db.collection("users")
@@ -37,6 +40,7 @@ Vue.mixin({
             if (doc.exists) {
               vm.user = doc.data();
               vm.user.id = doc.id;
+              vm.userLoading = false;
             } else {
               // doc.data() will be undefined in this case
               console.log("No such document!");
@@ -44,6 +48,7 @@ Vue.mixin({
           });
       } else {
         vm.user = null;
+        vm.userLoading = false;
       }
     });
   }

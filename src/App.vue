@@ -133,4 +133,10 @@ export default {
   width: 100%;
   height: 100%;
 }
+
+.placeholder__navbar__profilepicture::before {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
 </style>

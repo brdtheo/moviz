@@ -70,11 +70,12 @@
                 </v-list>
               </v-menu>
 
-              <v-btn v-if="!user" class="no-active" icon dark to="/login">
+              <v-btn v-if="!user && !userLoading" class="no-active" icon dark to="/login">
                 <v-icon>mdi-account</v-icon>
               </v-btn>
 
-              <v-menu offset-y left v-if="user">
+              <span class="placeholder placeholder__navbar__profilepicture" v-if="!user && userLoading"></span>
+              <v-menu offset-y left v-if="user && !userLoading">
                 <template v-slot:activator="{ attrs, on }">
                   <v-btn icon rounded dark v-bind="attrs" v-on="on">
                     <v-avatar size="32">
@@ -164,8 +165,6 @@ export default {
 
   data: () => {
     return {
-      loading: true,
-
       searchMode: false,
       searchField: "",
       queryResult: [],
