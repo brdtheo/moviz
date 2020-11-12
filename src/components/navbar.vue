@@ -70,16 +70,30 @@
                 </v-list>
               </v-menu>
 
-              <v-btn v-if="!user && !userLoading" class="no-active" icon dark to="/login">
+              <v-btn
+                v-if="!user && !userLoading"
+                class="no-active"
+                icon
+                dark
+                to="/login"
+              >
                 <v-icon>mdi-account</v-icon>
               </v-btn>
 
-              <span class="placeholder placeholder__navbar__profilepicture" v-if="!user && userLoading"></span>
+              <span
+                class="placeholder placeholder__navbar__profilepicture"
+                v-if="!user && userLoading"
+              ></span>
               <v-menu offset-y left v-if="user && !userLoading">
                 <template v-slot:activator="{ attrs, on }">
                   <v-btn icon rounded dark v-bind="attrs" v-on="on">
                     <v-avatar size="32">
-                      <img :src="user.profilePicture" alt="" />
+                      <img
+                        :src="user.profilePicture"
+                        alt=""
+                        v-if="user.profilePicture"
+                      />
+                      <img :src="`https://identicon-api.herokuapp.com/${user.username}/256?format=png`" alt="" v-else/>
                     </v-avatar>
                   </v-btn>
                 </template>

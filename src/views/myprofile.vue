@@ -1,17 +1,24 @@
 <template>
   <div>
-    <v-row justify="start" justify-sm="center">
-      <v-col cols="12" class="d-flex">
-        <span class="placeholder placeholder__profilepicture" v-if="loading"></span>
+    <v-row>
+      <v-col cols="5" sm="auto">
+        <span
+          class="placeholder placeholder__profilepicture"
+          v-if="loading"
+        ></span>
         <v-img
           :src="userInfos.profilePicture"
-          height="128"
-          max-width="128"
-          class="rounded"
+          class="rounded-circle"
           v-else
         ></v-img>
-
-        <div class="ml-5 d-flex flex-column">
+        <img
+          :src="`https://identicon-api.herokuapp.com/${userInfos.username}/256?format=png`"
+          alt=""
+          v-if="!userInfos.profilePicture"
+        />
+      </v-col>
+      <v-col cols="7" sm="auto">
+        <div class="d-flex flex-column">
           <h1 class="placeholder placeholder__name mb-2" v-if="loading"></h1>
           <h1 v-else>{{ userInfos.username }}</h1>
           <span class="placeholder placeholder__rating" v-if="loading"></span>
