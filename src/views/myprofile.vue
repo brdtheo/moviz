@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-row>
-      <v-col cols="5" sm="auto">
+      <v-col cols="5" sm="auto" class="p-relative">
         <span
           class="placeholder placeholder__profilepicture"
           v-if="loading"
@@ -16,6 +16,48 @@
           alt=""
           v-if="!userInfos.profilePicture"
         />
+        <v-tooltip right v-if="userInfos.role && userInfos.role == 'superadmin'">
+          <template v-slot:activator="{ on, attrs }">
+            <v-icon
+              size="40"
+              dark
+              v-bind="attrs"
+              v-on="on"
+              class="p-absolute user-badge"
+            >
+              mdi-alpha-s-circle
+            </v-icon>
+          </template>
+          <span>{{ userInfos.role }}</span>
+        </v-tooltip>
+        <v-tooltip right v-if="userInfos.role && userInfos.role == 'admin'">
+          <template v-slot:activator="{ on, attrs }">
+            <v-icon
+              size="40"
+              dark
+              v-bind="attrs"
+              v-on="on"
+              class="p-absolute user-badge"
+            >
+              mdi-alpha-a-circle
+            </v-icon>
+          </template>
+          <span>{{ userInfos.role }}</span>
+        </v-tooltip>
+        <v-tooltip right v-if="userInfos.role && userInfos.role == 'moderator'">
+          <template v-slot:activator="{ on, attrs }">
+            <v-icon
+              size="40"
+              dark
+              v-bind="attrs"
+              v-on="on"
+              class="p-absolute user-badge"
+            >
+              mdi-alpha-m-circle
+            </v-icon>
+          </template>
+          <span>{{ userInfos.role }}</span>
+        </v-tooltip>
       </v-col>
       <v-col cols="7" sm="auto">
         <div class="d-flex flex-column">

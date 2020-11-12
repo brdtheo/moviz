@@ -38,6 +38,21 @@ export default {
   width: 100%;
 }
 
+.p-absolute {
+  position: absolute !important;
+}
+
+.p-relative {
+  position: relative;
+}
+
+.user-badge {
+  bottom: 10px;
+  background: var(--indigo);
+  border-radius: 50%;
+  right: 10px;
+}
+
 .pointer {
   cursor: pointer;
 }
