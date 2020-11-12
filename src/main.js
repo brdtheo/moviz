@@ -27,7 +27,7 @@ Vue.mixin({
   },
 
   created() {
-    var vm = this;
+    let vm = this;
     auth.onAuthStateChanged(function (user) {
       vm.userLoading = true;
 

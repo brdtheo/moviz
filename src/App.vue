@@ -110,8 +110,8 @@ export default {
 }
 
 .placeholder__profilepicture::before {
-  width: 128px;
-  height: 128px;
+  width: 175px;
+  height: 175px;
 }
 
 .placeholder__moviedetail__name::before {
