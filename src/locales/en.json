@@ -39,8 +39,11 @@
     "noreviews": "There are no reviews available for this movie.",
     "login": "Login",
     "noaccountyet": "don't have an account yet ?",
+    "alreadyhasaccount": "already have an account ?",
     "emailaddress": "Email address",
     "password": "Password",
+    "confirmpassword": "Confirm password",
+    "username": "Username",
     "register": "register",
     "logout": "Logout",
     "myprofile": "My profile",
@@ -48,5 +51,10 @@
     "addamovie": "Add a movie",
     "name": "Name",
     "add": "add",
-    "sort": "sort"
+    "sort": "sort",
+    "required": "required",
+    "minsixcharacters": "min. 6 characters",
+    "maxtwelvecharacters": "max. 12 characters",
+    "alreadyloggedin": "You are already logged in",
+    "wrongpassword": "Wrong password"
 }

@@ -39,8 +39,11 @@
     "noreviews": "この映画に利用できるレビューはありません。",
     "login": "ログインする",
     "noaccountyet": "まだアカウントをお持ちではありませんか？",
+    "alreadyhasaccount": "すでに登録 ？",
     "emailaddress": "電子メールアドレス",
     "password": "パスワード",
+    "confirmpassword": "パスワードを認証する",
+    "username": "ユーザー名",
     "register": "登録",
     "logout": "ログアウト",
     "myprofile": "私のプロフィール",
@@ -48,5 +51,10 @@
     "addamovie": "映画を追加する",
     "name": "名前",
     "add": "追加",
-    "sort": "ソート"
+    "sort": "ソート",
+    "required": "必須",
+    "minsixcharacters": "6文字以上",
+    "maxtwelvecharacters": "最大12文字",
+    "alreadyloggedin": "あなたは既にログイン済みです",
+    "wrongpassword": "間違ったパスワード"
 }

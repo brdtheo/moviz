@@ -39,8 +39,11 @@
     "noreviews": "Il n'y a aucun avis disponible pour ce film.",
     "login": "Se connecter",
     "noaccountyet": "pas encore de compte ?",
+    "alreadyhasaccount": "déjà enregistré ?",
     "emailaddress": "Addresse e-mail",
     "password": "Mot de passe",
+    "confirmpassword": "Confirmez le mot de passe",
+    "username": "Nom d'utilisateur",
     "register": "s'enregistrer",
     "logout": "Se déconnecter",
     "myprofile": "Mon profil",
@@ -48,5 +51,10 @@
     "addamovie": "Ajouter un film",
     "name": "Nom",
     "add": "ajouter",
-    "sort": "trier"
+    "sort": "trier",
+    "required": "requis",
+    "minsixcharacters": "min. 6 caractères",
+    "maxtwelvecharacters": "max. 12 caractères",
+    "alreadyloggedin": "Vous êtes déjà connecté",
+    "wrongpassword": "Mauvais mot de passe"
 }
