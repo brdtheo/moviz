@@ -191,8 +191,8 @@ export default {
   },
 
   methods: {
-    redirectToProfile() {
-      router.push({ name: "my-profile", params: { userId: this.user.id } });
+    redirectToHome() {
+      router.push("/");
     },
 
     register() {
@@ -228,7 +228,7 @@ export default {
                     username: this.userInput.register.username,
                   })
                   .then(() => {
-                    this.redirectToProfile();
+                    this.redirectToHome();
                   })
                   .catch((error) => {
                     console.log(error);
@@ -251,7 +251,7 @@ export default {
         .then(() => {
           this.userInput.login.email = "";
           this.userInput.login.password = "";
-          this.redirectToProfile();
+          this.redirectToHome();
         })
         .catch((error) => {
           if (error) {
