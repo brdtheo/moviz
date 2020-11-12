@@ -11,9 +11,10 @@
           class="rounded-circle"
           v-else
         ></v-img>
-        <img
+        <v-img
           :src="`https://identicon-api.herokuapp.com/${userInfos.username}/256?format=png`"
           alt=""
+          class="rounded-circle"
           v-if="!userInfos.profilePicture"
         />
         <v-tooltip right v-if="userInfos.role && userInfos.role == 'superadmin'">
