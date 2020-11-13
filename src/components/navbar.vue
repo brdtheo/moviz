@@ -133,29 +133,18 @@
       <v-row>
         <v-col v-if="queryResult.length == 0">{{ $t("noresult") }}</v-col>
         <v-col
-          sm="4"
-          md="3"
-          class="col-12"
+          sm="3"
+          md="2"
+          class="col-6"
           v-for="movie in queryResult"
           :key="movie.id"
           v-else
         >
-          <moviecard
-            :image="movie.image"
+          <Moviecard
+            :poster="movie.poster"
             :name="movie.name"
             :year="movie.year"
-            :description="movie.description.en"
             :movieId="movie.id"
-            v-if="movie.description && $i18n.locale == 'en'"
-            @event="toggleSearchMode()"
-          />
-          <moviecard
-            :image="movie.image"
-            :name="movie.name"
-            :year="movie.year"
-            :description="movie.description.fr"
-            :movieId="movie.id"
-            v-if="movie.description && $i18n.locale == 'fr'"
             @event="toggleSearchMode()"
           />
         </v-col>
@@ -168,13 +157,13 @@
 import router from "../router/index";
 import { auth } from "../firebase";
 import { db } from "../firebase";
-import moviecard from "./moviecard";
+import Moviecard from "./Moviecard";
 
 export default {
   name: "Navbar",
 
   components: {
-    moviecard,
+    Moviecard,
   },
 
   data: () => {

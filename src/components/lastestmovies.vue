@@ -7,50 +7,38 @@
       </v-btn>
     </div>
     <v-row v-if="loading">
-      <v-col sm="4" md="3" class="col-12">
+      <v-col sm="3" md="2" class="col-6">
         <MovieCardPlaceholder />
       </v-col>
-      <v-col sm="4" md="3" class="col-12">
+      <v-col sm="3" md="2" class="col-6">
         <MovieCardPlaceholder />
       </v-col>
-      <v-col sm="4" md="3" class="col-12">
+      <v-col sm="3" md="2" class="col-6">
         <MovieCardPlaceholder />
       </v-col>
-      <v-col sm="4" md="3" class="col-12">
+      <v-col sm="3" md="2" class="col-6">
+        <MovieCardPlaceholder />
+      </v-col>
+      <v-col sm="3" md="2" class="col-6">
+        <MovieCardPlaceholder />
+      </v-col>
+      <v-col sm="3" md="2" class="col-6">
         <MovieCardPlaceholder />
       </v-col>
     </v-row>
     <v-row v-else>
       <v-col
-        sm="4"
-        md="3"
-        class="col-12"
+        sm="3"
+        md="2"
+        class="col-6"
         v-for="movie in movies"
         :key="movie.id"
       >
-        <moviecard
-          :image="movie.image"
+        <Moviecard
+          :poster="movie.poster"
           :name="movie.name"
           :year="movie.year"
-          :description="movie.description.en"
           :movieId="movie.id"
-          v-if="$i18n.locale == 'en'"
-        />
-        <moviecard
-          :image="movie.image"
-          :name="movie.name"
-          :year="movie.year"
-          :description="movie.description.fr"
-          :movieId="movie.id"
-          v-if="$i18n.locale == 'fr'"
-        />
-        <moviecard
-          :image="movie.image"
-          :name="movie.name"
-          :year="movie.year"
-          :description="movie.description.jp"
-          :movieId="movie.id"
-          v-if="$i18n.locale == 'jp'"
         />
       </v-col>
     </v-row>
@@ -59,14 +47,14 @@
 
 <script>
 import MovieCardPlaceholder from "./placeholders/MovieCardPlaceholder";
-import moviecard from "./moviecard";
+import Moviecard from "./Moviecard";
 import { db } from "../firebase";
 
 export default {
   name: "lastestMovies",
 
   components: {
-    moviecard,
+    Moviecard,
     MovieCardPlaceholder,
   },
 
@@ -86,7 +74,7 @@ export default {
   created() {
     this.$bind(
       "movies",
-      db.collection("movies").orderBy("uploadDate", "desc").limit(4)
+      db.collection("movies").orderBy("uploadDate", "desc").limit(6)
     ).then(() => {
       this.loading = false;
     });

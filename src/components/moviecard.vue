@@ -1,22 +1,23 @@
 <template>
-  <v-card>
-    <v-img position="top" height="100" :src="image"></v-img>
-    <v-card-title>{{ name }}</v-card-title>
-    <v-card-subtitle>{{ year }}</v-card-subtitle>
-    <v-card-text>{{ description.substring(0, 97) + "..." }}</v-card-text>
-    <v-card-actions>
-      <v-btn
-        @click="
-          navigate(movieId);
-          $emit('event');
-        "
-        color="indigo"
-        dark
-        small
-      >
-        infos
-      </v-btn>
-    </v-card-actions>
+  <v-card
+    tile
+    @mouseover="displayDetails = true"
+    @mouseleave="displayDetails = false"
+    @click="
+      navigate(movieId);
+      $emit('event');
+    "
+  >
+    <v-img position="bottom" height="250" :src="poster" alt="">
+      <transition name="fade">
+        <div class="movieDetails pa-5" v-if="displayDetails">
+          <h4>{{ name }}</h4>
+          <p>
+            <small>{{ year }}</small>
+          </p>
+        </div>
+      </transition>
+    </v-img>
   </v-card>
 </template>
 
@@ -24,12 +25,12 @@
 import router from "../router/index";
 
 export default {
-  name: "moviecard",
+  name: "Moviecard",
 
   props: {
-    image: {
+    poster: {
       type: String,
-      required: true,
+      required: false,
     },
     name: {
       type: String,
@@ -39,14 +40,16 @@ export default {
       type: String,
       required: true,
     },
-    description: {
-      type: String,
-      required: true,
-    },
     movieId: {
       type: String,
       required: true,
-    }
+    },
+  },
+
+  data: () => {
+    return {
+      displayDetails: false,
+    };
   },
 
   methods: {
@@ -56,3 +59,23 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.movieDetails {
+  background: #000;
+  opacity: 0.85;
+  width: 100%;
+  height: 100%;
+  color: #fff;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity ease-in-out 100ms;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
