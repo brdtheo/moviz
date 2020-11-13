@@ -27,7 +27,8 @@
         "psychological thriller": "心理的なスリラー",
         "narrative": "物語",
         "satire": "風刺",
-        "dark comedy": "ダークコメディ"
+        "dark comedy": "ダークコメディ",
+        "documentary": "ドキュメンタリー"
     },
     "length": "長さ",
     "year": "年",

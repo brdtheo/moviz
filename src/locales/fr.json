@@ -27,7 +27,8 @@
         "psychological thriller": "thriller psychologique",
         "narrative": "narratif",
         "satire": "satire",
-        "dark comedy": "comédie noire"
+        "dark comedy": "comédie noire",
+        "documentary": "documentaire"
     },
     "length": "Durée",
     "year": "Année",

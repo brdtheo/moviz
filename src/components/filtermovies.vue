@@ -4,13 +4,14 @@
       <v-col class="d-flex align-center justify-space-between">
         <v-btn
           small
-          color="#e50914"
+          dark
+          color="indigo"
           @click="
             openNetflixOnly();
             $emit('enable-netflix-only');
           "
         >
-          Netflix
+          netflix
         </v-btn>
 
         <v-menu left>
@@ -40,7 +41,8 @@
         <v-chip
           small
           close
-          color="#e50914"
+          dark
+          color="indigo"
           v-if="netflixOnly"
           @click:close="
             closeNetflixOnly();

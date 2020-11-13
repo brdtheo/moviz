@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-10">
+  <div class="my-10">
     <div>
       <v-row justify="center">
         <v-col cols="12" sm="6">
@@ -21,8 +21,8 @@
             ></v-text-field>
 
             <v-text-field
-              v-model="newMovie.image"
-              label="Image"
+              v-model="newMovie.poster"
+              label="Poster"
               background-color="grey darken-3"
               dark
               solo
@@ -30,7 +30,7 @@
             ></v-text-field>
 
             <v-row>
-              <v-col cols="6" class="py-0">
+              <v-col cols="4" class="py-0">
                 <v-text-field
                   v-model="newMovie.description.en"
                   label="Description (en)"
@@ -40,10 +40,20 @@
                   dense
                 ></v-text-field>
               </v-col>
-              <v-col cols="6" class="py-0">
+              <v-col cols="4" class="py-0">
                 <v-text-field
                   v-model="newMovie.description.fr"
                   label="Description (fr)"
+                  background-color="grey darken-3"
+                  dark
+                  solo
+                  dense
+                ></v-text-field>
+              </v-col>
+              <v-col cols="4" class="py-0">
+                <v-text-field
+                  v-model="newMovie.description.jp"
+                  label="Description (jp)"
                   background-color="grey darken-3"
                   dark
                   solo
@@ -255,14 +265,16 @@ export default {
         "narrative",
         "satire",
         "dark comedy",
+        "documentary",
       ],
 
       newMovie: {
         name: "",
-        image: "",
+        poster: "",
         description: {
           en: "",
           fr: "",
+          jp: ""
         },
         length: "",
         year: "",
