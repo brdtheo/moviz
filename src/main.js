@@ -14,6 +14,10 @@ Vue.use(firestorePlugin)
 // i18n
 import i18n from "./i18n";
 
+// algolia search
+//import InstantSearch from 'vue-instantsearch';
+//Vue.use(InstantSearch);
+
 
 Vue.config.productionTip = false
 
