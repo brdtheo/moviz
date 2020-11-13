@@ -94,24 +94,14 @@ export default {
   }
 }
 
-.placeholder__name::before {
+.placeholder__poster::before {
+  width: 100%;
+  height: 100%;
+}
+
+.placeholder__rating__name::before {
   width: 15ch;
   height: 32px;
-}
-
-.placeholder__year::before {
-  width: 5ch;
-  height: 22px;
-}
-
-.placeholder__description::before {
-  width: 100%;
-  height: 64px;
-}
-
-.placeholder__btn::before {
-  width: 56px;
-  height: 28px;
 }
 
 .placeholder__rating::before {
