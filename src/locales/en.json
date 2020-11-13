@@ -56,5 +56,7 @@
     "minsixcharacters": "min. 6 characters",
     "maxtwelvecharacters": "max. 12 characters",
     "alreadyloggedin": "You are already logged in",
-    "wrongpassword": "Wrong password"
+    "wrongpassword": "Wrong password",
+    "invalidemail": "invalid email",
+    "usernotfound": "User not found"
 }

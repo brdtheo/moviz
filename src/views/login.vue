@@ -15,7 +15,7 @@
             v-model="userInput.register.email"
             type="email"
             :label="$t('emailaddress')"
-            :rules="required"
+            :rules="registerEmailRules"
             color="indigo"
             dark
             outlined
@@ -24,6 +24,7 @@
           ></v-text-field>
           <v-text-field
             v-model="userInput.login.email"
+            @keypress.enter="login()"
             type="email"
             :label="$t('emailaddress')"
             color="indigo"
@@ -46,6 +47,7 @@
           ></v-text-field>
           <v-text-field
             v-model="userInput.login.password"
+            @keypress.enter="login()"
             type="password"
             :label="$t('password')"
             color="indigo"
@@ -113,6 +115,12 @@
           <v-snackbar v-model="wrongPassword" color="error" outlined dark right>
             {{ $t("wrongpassword") }}
           </v-snackbar>
+          <v-snackbar v-model="userNotFound" color="error" outlined dark right>
+            {{ $t("usernotfound") }}
+          </v-snackbar>
+          <v-snackbar v-model="invalidEmail" color="error" outlined dark right>
+            {{ $t("invalidemail") }}
+          </v-snackbar>
         </div>
         <div v-else>
           <v-alert color="error" dark text icon="mdi-account">
@@ -167,6 +175,8 @@ export default {
 
       snackTimeout: "2000",
       wrongPassword: false,
+      userNotFound: false,
+      invalidEmail: false,
     };
   },
 
@@ -181,11 +191,22 @@ export default {
         (value) => (value && value.length > 6) || this.$t("minsixcharacters"),
       ];
     },
+
     usernameRegister() {
       return [
         (value) => !!value || this.$t("required"),
         (value) =>
           (value && value.length < 12) || this.$t("maxtwelvecharacters"),
+      ];
+    },
+
+    registerEmailRules() {
+      return [
+        (value) => !!value || this.$t("required"),
+        (value) => {
+          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+          return pattern.test(value) || this.$t("invalidemail");
+        },
       ];
     },
   },
@@ -228,6 +249,11 @@ export default {
                     username: this.userInput.register.username,
                   })
                   .then(() => {
+                    this.userInput.register.email = "";
+                    this.userInput.register.password = "";
+                    this.userInput.register.confirmPassword = "";
+                    this.userInput.register.username = "";
+                    this.userInput.register.chosenProfilePicture = "";
                     this.redirectToHome();
                   })
                   .catch((error) => {
@@ -259,6 +285,16 @@ export default {
               this.wrongPassword = true;
               setTimeout(() => {
                 this.wrongPassword = false;
+              }, 2000);
+            } else if (error.code === "auth/user-not-found") {
+              this.userNotFound = true;
+              setTimeout(() => {
+                this.userNotFound = false;
+              }, 2000);
+            } else if (error.code === "auth/invalid-email") {
+              this.invalidEmail = true;
+              setTimeout(() => {
+                this.invalidEmail = false;
               }, 2000);
             } else {
               console.log(error);

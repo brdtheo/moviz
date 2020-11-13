@@ -10,7 +10,7 @@ const routes = [
     path: '/',
     name: 'home',
     meta: { title: 'Moviz: the movie hub' },
-    component: () => import('../views/Home')
+    component: () => import('../views/home')
   },
   {
     path: '/all-movies',

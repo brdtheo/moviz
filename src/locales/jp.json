@@ -56,5 +56,7 @@
     "minsixcharacters": "6文字以上",
     "maxtwelvecharacters": "最大12文字",
     "alreadyloggedin": "あなたは既にログイン済みです",
-    "wrongpassword": "間違ったパスワード"
+    "wrongpassword": "間違ったパスワード",
+    "invalidemail": "無効なメール",
+    "usernotfound": "ユーザーが見つかりません"
 }
