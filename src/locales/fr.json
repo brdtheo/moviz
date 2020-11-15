@@ -59,5 +59,13 @@
     "alreadyloggedin": "Vous êtes déjà connecté",
     "wrongpassword": "Mauvais mot de passe",
     "invalidemail": "email invalide",
-    "usernotfound": "Utilisateur inexistant"
+    "usernotfound": "Utilisateur inexistant",
+    "edit": "éditer",
+    "delete": "supprimer",
+    "confirmdeletion": "Confirmer la suppression",
+    "reviewdeleted": "avis supprimé",
+    "cancel": "annuler",
+    "save": "enregistrer",
+    "reviewedited": "avis modifié",
+    "editedon": "modifié le"
 }

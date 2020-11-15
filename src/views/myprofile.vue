@@ -7,7 +7,7 @@
           v-if="loading"
         ></span>
         <v-img
-          :src="userInfos.profilePicture"
+          :src="user && userInfos.profilePicture"
           class="rounded-circle"
           v-else
         ></v-img>
@@ -15,9 +15,12 @@
           :src="`https://identicon-api.herokuapp.com/${userInfos.username}/256?format=png`"
           alt=""
           class="rounded-circle"
-          v-if="!userInfos.profilePicture"
+          v-if="user && !userInfos.profilePicture"
         />
-        <v-tooltip right v-if="userInfos.role && userInfos.role == 'superadmin'">
+        <v-tooltip
+          right
+          v-if="userInfos.role && userInfos.role == 'superadmin'"
+        >
           <template v-slot:activator="{ on, attrs }">
             <v-icon
               size="40"
@@ -77,6 +80,48 @@
       </v-col>
       <v-col cols="12" v-for="review in userReviews" :key="review.id" v-else>
         <v-card class="grey darken-3 review" dark>
+          <div class="px-4 pt-2" v-if="review.author === user.username">
+            <v-chip
+              v-if="selectedReview.id != review.id"
+              @click="editReview(review)"
+              color="indigo"
+              class="mr-2"
+              small
+            >
+              <v-icon left size="15">mdi-pencil</v-icon>
+              {{ $t("edit") }}
+            </v-chip>
+            <v-chip
+              v-if="selectedReview.id == review.id"
+              @click="cancelEdit()"
+              color="indigo"
+              class="mr-2"
+              small
+            >
+              <v-icon left size="15">mdi-pencil-off</v-icon>
+              {{ $t("cancel") }}
+            </v-chip>
+            <v-chip
+              @click="deleteReview(review.id)"
+              color="indigo"
+              class="mr-2"
+              small
+            >
+              <v-icon left size="15">mdi-delete</v-icon>
+              {{ $t("delete") }}
+            </v-chip>
+            <v-snackbar
+              v-model="reviewDeleted"
+              color="success"
+              outlined
+              right
+              timeout="2000"
+              bottom
+            >
+              {{ $t("reviewdeleted") }}
+            </v-snackbar>
+          </div>
+
           <v-card-title
             class="pb-0 pointer"
             @click="navigateToMovie(review.movieId)"
@@ -87,17 +132,53 @@
             color="yellow"
             class="px-4"
             length="5"
-            v-if="review.rating"
-            :value="review.rating"
-            half-increments
-            readonly
+            v-if="review.rating && selectedReview.id == review.id"
+            v-model="selectedReview.rating"
             small
             dense
           ></v-rating>
-          <v-card-text>{{ review.description }}</v-card-text>
+          <v-rating
+            v-else
+            background-color="grey"
+            color="yellow"
+            class="px-4"
+            length="5"
+            readonly
+            :value="review.rating"
+            small
+            dense
+          ></v-rating>
+          <v-card-text v-if="selectedReview.id == review.id">
+            <v-text-field
+              v-model="selectedReview.description"
+              color="indigo"
+              solo
+              class="dark darken-1 mb-4"
+              hide-details="auto"
+            ></v-text-field>
+            <v-chip
+              @click="sendEditedReview()"
+              color="indigo"
+              class="mr-2"
+            >
+              {{ $t("save") }}
+            </v-chip>
+          </v-card-text>
+          <v-card-text v-else>{{ review.description }}</v-card-text>
         </v-card>
       </v-col>
     </v-row>
+    <v-snackbar
+      v-model="reviewEditedSuccess"
+      color="success"
+      timeout="2000"
+      dark
+      outlined
+      right
+      bottom
+    >
+      {{ $t("reviewedited") }}
+    </v-snackbar>
   </div>
 </template>
 
@@ -111,19 +192,72 @@ export default {
     ReviewPlaceholder,
   },
 
-  data: () => {
+  data() {
     return {
       loading: true,
 
       // public infos
       userInfos: {},
       userReviews: [],
+
+      // manage reviews
+      reviewDeleted: false,
+      selectedReview: {
+        id: "",
+        description: "",
+        rating: null,
+      },
+      reviewEditedSuccess: false,
     };
   },
 
   methods: {
     navigateToMovie(id) {
       router.push({ name: "movie-detail", params: { movieId: id } });
+    },
+
+    async deleteReview(id) {
+      try {
+        await db.collection("reviews").doc(id).delete();
+        this.reviewDeleted = true;
+        setTimeout(() => {
+          this.reviewDeleted = false;
+        }, 2000);
+      } catch (err) {
+        console.error(err);
+      }
+    },
+
+    editReview(review) {
+      this.selectedReview.id = review.id;
+      this.selectedReview.description = review.description;
+      this.selectedReview.rating = review.rating;
+    },
+
+    cancelEdit() {
+      this.selectedReview.id = null;
+      this.selectedReview.description = null;
+      this.selectedReview.rating = null;
+    },
+
+    async sendEditedReview() {
+      try {
+        let editedReview = this.selectedReview;
+
+        await db.collection("reviews").doc(editedReview.id).update({
+          rating: editedReview.rating,
+          description: editedReview.description,
+          edited: new Date(),
+        });
+
+        this.reviewEditedSuccess = true;
+        setTimeout(() => {
+          this.reviewEditedSuccess = false;
+        }, 2000);
+        this.cancelEdit();
+      } catch (error) {
+        console.error(error);
+      }
     },
   },
 

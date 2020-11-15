@@ -59,5 +59,13 @@
     "alreadyloggedin": "あなたは既にログイン済みです",
     "wrongpassword": "間違ったパスワード",
     "invalidemail": "無効なメール",
-    "usernotfound": "ユーザーが見つかりません"
+    "usernotfound": "ユーザーが見つかりません",
+    "edit": "編集",
+    "delete": "削除",
+    "confirmdeletion": "確認の削除",
+    "reviewdeleted": "レビューが削除されました",
+    "cancel": "キャンセル",
+    "save": "セーブ",
+    "reviewedited": "レビュー編集",
+    "editedon": "で編集"
 }

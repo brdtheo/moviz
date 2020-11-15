@@ -59,5 +59,13 @@
     "alreadyloggedin": "You are already logged in",
     "wrongpassword": "Wrong password",
     "invalidemail": "invalid email",
-    "usernotfound": "User not found"
+    "usernotfound": "User not found",
+    "edit": "edit",
+    "delete": "delete",
+    "confirmdeletion": "Confirm deletion",
+    "reviewdeleted": "review deleted",
+    "cancel": "cancel",
+    "save": "save",
+    "reviewedited": "review edited",
+    "editedon": "edited on"
 }
