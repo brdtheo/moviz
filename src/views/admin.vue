@@ -211,7 +211,7 @@
               </v-col>
             </v-row>
 
-            <v-btn small @click="addDocument()" dark color="indigo">
+            <v-btn small @click="addMovie()" dark color="indigo">
               {{ $t("add") }}
             </v-btn>
           </div>
@@ -299,11 +299,10 @@ export default {
   },
 
   methods: {
-    addDocument() {
+    addMovie() {
       let newMovie = this.newMovie;
       let vm = this.$data;
 
-      // Add a new document with a generated id.
       db.collection("movies")
         .add(newMovie)
         .then(function (docRef) {

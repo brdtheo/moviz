@@ -93,7 +93,11 @@
                         alt=""
                         v-if="user.profilePicture"
                       />
-                      <img :src="`https://identicon-api.herokuapp.com/${user.username}/256?format=png`" alt="" v-else/>
+                      <img
+                        :src="`https://identicon-api.herokuapp.com/${user.username}/256?format=png`"
+                        alt=""
+                        v-else
+                      />
                     </v-avatar>
                   </v-btn>
                 </template>
@@ -213,6 +217,8 @@ export default {
     // i18n
     changeLocale(locale) {
       this.$i18n.locale = locale;
+      this.$moment.locale(locale);
+      
     },
 
     navigate: (movieId) => {
@@ -236,7 +242,7 @@ export default {
         db.collection("movies").where("name", "==", input)
       );
     },
-  },
+  }
 };
 </script>
 
