@@ -18,6 +18,11 @@ import i18n from "./i18n";
 //import InstantSearch from 'vue-instantsearch';
 //Vue.use(InstantSearch);
 
+// moment.js
+import moment from "moment";
+import VueMomentJS from "vue-momentjs";
+Vue.use(VueMomentJS, moment);
+
 
 Vue.config.productionTip = false
 

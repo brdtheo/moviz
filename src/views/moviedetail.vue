@@ -81,7 +81,10 @@
             </v-col>
             <v-col>
               <h4 class="font-weight-medium">{{ $t("watchnow") }}</h4>
-              <span class="placeholder placeholder__moviedetail__text" v-if="loading"></span>
+              <span
+                class="placeholder placeholder__moviedetail__text"
+                v-if="loading"
+              ></span>
               <div v-if="movie.links && !loading">
                 <movieLink
                   v-if="movie.links.youtube"
@@ -204,7 +207,14 @@
               small
               dense
             ></v-rating>
-            <v-card-text>{{ review.description }}</v-card-text>
+            <v-card-text>
+              <p class="mb-0">{{ review.description }}</p>
+              <small v-if="review.edited">
+                <em>{{
+                  `${$t("editedon")} ${formatEditedDate(review.edited)}`
+                }}</em>
+              </small>
+            </v-card-text>
           </v-card>
           <p v-if="reviews.length == 0">{{ $t("noreviews") }}</p>
         </v-col>
@@ -214,6 +224,7 @@
 </template>
 
 <script>
+var moment = require("moment");
 import ReviewPlaceholder from "../components/placeholders/ReviewPlaceholder";
 import router from "../router/index";
 //import Plyr from "plyr";
@@ -257,6 +268,10 @@ export default {
           return vm.movie.description.jp;
         }
       }
+    },
+
+    formatEditedDate(date) {
+      return moment().calendar(date.toDate());
     },
   },
 
