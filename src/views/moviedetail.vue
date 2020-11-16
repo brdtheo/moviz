@@ -1,135 +1,19 @@
 
 <template>
-  <div>
+  <div class="compressedWrapper">
     <v-row>
-      <v-col cols="12" sm="6">
+      <v-col cols="12" class="py-0">
         <span
           class="placeholder placeholder__moviedetail__name"
           v-if="loading"
         ></span>
-        <h1 class="font-weight-regular ma-0" v-else>{{ movie.name }}</h1>
-
-        <div class="my-5">
-          <v-row>
-            <v-col>
-              <h4 class="font-weight-medium">{{ $t("length") }}</h4>
-              <span
-                class="placeholder placeholder__moviedetail__text"
-                v-if="loading"
-              ></span>
-              <p
-                class="subtitle-2 font-weight-regular"
-                v-if="movie.length && !loading"
-              >
-                {{ movie.length }}
-              </p>
-            </v-col>
-            <v-col>
-              <h4 class="font-weight-medium">{{ $t("year") }}</h4>
-              <span
-                class="placeholder placeholder__moviedetail__text"
-                v-if="loading"
-              ></span>
-              <p
-                class="subtitle-2 font-weight-regular"
-                v-if="movie.year && !loading"
-              >
-                {{ movie.year }}
-              </p>
-            </v-col>
-            <v-col>
-              <h4 class="font-weight-medium">{{ $t("metacriticscore") }}</h4>
-              <span
-                class="placeholder placeholder__moviedetail__text"
-                v-if="loading"
-              ></span>
-              <p
-                class="subtitle-2 font-weight-regular percent"
-                v-if="movie.score && !loading"
-              >
-                {{ movie.score.metacritic }}
-              </p>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col>
-              <h4 class="font-weight-medium">{{ $t("country") }}</h4>
-              <span
-                class="placeholder placeholder__moviedetail__text"
-                v-if="loading"
-              ></span>
-              <p class="subtitle-2 font-weight-regular" v-else>USA</p>
-            </v-col>
-            <v-col>
-              <h4 class="font-weight-medium">{{ $t("producers") }}</h4>
-              <span
-                class="placeholder placeholder__moviedetail__text"
-                v-if="loading"
-              ></span>
-              <p
-                class="subtitle-2 font-weight-regular"
-                v-if="movie.producers && !loading"
-              >
-                <span
-                  class="comma"
-                  v-for="(producer, index) in movie.producers"
-                  :key="index"
-                >
-                  <span>{{ producer }}</span>
-                </span>
-              </p>
-            </v-col>
-            <v-col>
-              <h4 class="font-weight-medium">{{ $t("watchnow") }}</h4>
-              <span
-                class="placeholder placeholder__moviedetail__text"
-                v-if="loading"
-              ></span>
-              <div v-if="movie.links && !loading">
-                <movieLink
-                  v-if="movie.links.youtube"
-                  color="#c4302b"
-                  :url="movie.links.youtube"
-                  icon="youtube"
-                >
-                  youtube
-                </movieLink>
-                <movieLink
-                  v-if="movie.links.googlePlay"
-                  color="#b3c833"
-                  :url="movie.links.googlePlay"
-                  icon="google-play"
-                >
-                  google play
-                </movieLink>
-                <movieLink
-                  v-if="movie.links.amazonPrime"
-                  color="#00a8e1"
-                  :url="movie.links.amazonPrime"
-                  icon="amazon"
-                >
-                  prime
-                </movieLink>
-                <movieLink
-                  v-if="movie.links.netflix"
-                  color="#e50914"
-                  :url="movie.links.netflix"
-                  icon="netflix"
-                >
-                  netflix
-                </movieLink>
-                <movieLink
-                  v-if="movie.links.disneyPlus"
-                  color="#113ccf"
-                  :url="movie.links.disneyPlus"
-                >
-                  disney+
-                </movieLink>
-              </div>
-            </v-col>
-          </v-row>
-        </div>
-
+        <h1 class="font-weight-regular ma-0" v-else>
+          {{ movie.name }} <small class="movieYear">{{ movie.year }}</small>
+        </h1>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col cols="12" class="py-0">
         <div v-if="loading">
           <span class="placeholder placeholder__moviedetail__chip"></span>
         </div>
@@ -147,8 +31,9 @@
           </v-chip>
         </div>
       </v-col>
-
-      <v-col cols="12" sm="6">
+    </v-row>
+    <v-row class="pt-5">
+      <v-col cols="12">
         <span
           class="placeholder placeholder__moviedetail__trailer"
           v-if="loading"
@@ -159,18 +44,129 @@
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen
-          v-else
         ></iframe>
       </v-col>
     </v-row>
-
     <v-row>
       <v-col>
         <span
           class="placeholder placeholder__description"
           v-if="loading"
         ></span>
-        <p class="mt-5 movieDescription" v-else>{{ returnDescription() }}</p>
+        <p class="movieDescription" v-else>{{ returnDescription() }}</p>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col cols="auto" sm="2">
+        <h4 class="font-weight-medium">{{ $t("length") }}</h4>
+        <span
+          class="placeholder placeholder__moviedetail__text"
+          v-if="loading"
+        ></span>
+        <p
+          class="subtitle-2 font-weight-regular"
+          v-if="movie.length && !loading"
+        >
+          {{ movie.length }}
+        </p>
+      </v-col>
+      <v-col cols="auto" sm="2">
+        <h4 class="font-weight-medium">{{ $t("year") }}</h4>
+        <span
+          class="placeholder placeholder__moviedetail__text"
+          v-if="loading"
+        ></span>
+        <p class="subtitle-2 font-weight-regular" v-if="movie.year && !loading">
+          {{ movie.year }}
+        </p>
+      </v-col>
+      <v-col cols="auto" sm="2">
+        <h4 class="font-weight-medium">{{ $t("metacriticscore") }}</h4>
+        <span
+          class="placeholder placeholder__moviedetail__text"
+          v-if="loading"
+        ></span>
+        <p
+          class="subtitle-2 font-weight-regular percent"
+          v-if="movie.score && !loading"
+        >
+          {{ movie.score.metacritic }}
+        </p>
+      </v-col>
+      <v-col cols="2">
+        <h4 class="font-weight-medium">{{ $t("country") }}</h4>
+        <span
+          class="placeholder placeholder__moviedetail__text"
+          v-if="loading"
+        ></span>
+        <p class="subtitle-2 font-weight-regular" v-else>USA</p>
+      </v-col>
+      <v-col cols="auto" sm="4">
+        <h4 class="font-weight-medium">{{ $t("producers") }}</h4>
+        <span
+          class="placeholder placeholder__moviedetail__text"
+          v-if="loading"
+        ></span>
+        <p
+          class="subtitle-2 font-weight-regular"
+          v-if="movie.producers && !loading"
+        >
+          <span
+            class="comma"
+            v-for="(producer, index) in movie.producers"
+            :key="index"
+          >
+            <span>{{ producer }}</span>
+          </span>
+        </p>
+      </v-col>
+      <v-col cols="2">
+        <h4 class="font-weight-medium">{{ $t("watchnow") }}</h4>
+        <span
+          class="placeholder placeholder__moviedetail__text"
+          v-if="loading"
+        ></span>
+        <div v-if="movie.links && !loading">
+          <movieLink
+            v-if="movie.links.youtube"
+            color="#c4302b"
+            :url="movie.links.youtube"
+            icon="youtube"
+          >
+            youtube
+          </movieLink>
+          <movieLink
+            v-if="movie.links.googlePlay"
+            color="#b3c833"
+            :url="movie.links.googlePlay"
+            icon="google-play"
+          >
+            google play
+          </movieLink>
+          <movieLink
+            v-if="movie.links.amazonPrime"
+            color="#00a8e1"
+            :url="movie.links.amazonPrime"
+            icon="amazon"
+          >
+            prime
+          </movieLink>
+          <movieLink
+            v-if="movie.links.netflix"
+            color="#e50914"
+            :url="movie.links.netflix"
+            icon="netflix"
+          >
+            netflix
+          </movieLink>
+          <movieLink
+            v-if="movie.links.disneyPlus"
+            color="#113ccf"
+            :url="movie.links.disneyPlus"
+          >
+            disney+
+          </movieLink>
+        </div>
       </v-col>
     </v-row>
 
@@ -225,9 +221,9 @@
 
 <script>
 var moment = require("moment");
+import Plyr from "plyr";
 import ReviewPlaceholder from "../components/placeholders/ReviewPlaceholder";
 import router from "../router/index";
-//import Plyr from "plyr";
 import { db } from "../firebase";
 import movieLink from "../components/movielink";
 
@@ -276,7 +272,7 @@ export default {
   },
 
   mounted() {
-    //new Plyr("#trailer");
+    new Plyr("#trailer");
   },
 
   created() {
@@ -294,10 +290,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .trailer iframe {
-  outline: none !important;
-  border: none !important;
   width: 100% !important;
 }
 
@@ -307,6 +301,26 @@ export default {
 
 .movieTrailer {
   width: 100%;
-  height: 100%;
+}
+
+@media screen and (max-width: 500px) {
+  .movieTrailer {
+    height: 200px;
+  }
+}
+
+@media screen and (min-width: 501px) {
+  .movieTrailer {
+    height: 400px;
+  }
+}
+
+.movieYear {
+  font-size: 15px;
+}
+
+.compressedWrapper {
+  max-width: 900px;
+  margin: 0 auto;
 }
 </style>
