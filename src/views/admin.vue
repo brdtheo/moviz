@@ -103,7 +103,7 @@
             ></v-text-field>
 
             <v-text-field
-              v-model="newMovie.trailerId"
+              v-model="newMovie.trailer"
               label="trailer ID"
               background-color="grey darken-3"
               dark
@@ -281,13 +281,8 @@ export default {
         score: {
           metacritic: "",
         },
-        links: {
-          youtube: "",
-          netflix: "",
-          googlePlay: "",
-          amazonPrime: "",
-        },
-        producers: ['', '', '', '', ''],
+        links: {},
+        producers: [],
         genre: [],
         uploadDate: new Date(),
       },

@@ -38,13 +38,12 @@
           class="placeholder placeholder__moviedetail__trailer"
           v-if="loading"
         ></span>
-        <iframe
-          class="movieTrailer"
-          :src="'https://www.youtube.com/embed/' + movie.trailerId"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-        ></iframe>
+        <video
+          preload="metadata"
+          ref="videoPlayer"
+          class="video-js vjs-big-play-centered"
+          :options="videoOptions"
+        ></video>
       </v-col>
     </v-row>
     <v-row>
@@ -221,25 +220,36 @@
 
 <script>
 var moment = require("moment");
-import Plyr from "plyr";
 import ReviewPlaceholder from "../components/placeholders/ReviewPlaceholder";
 import router from "../router/index";
 import { db } from "../firebase";
 import movieLink from "../components/movielink";
+import videojs from "video.js";
+import "video.js/dist/video-js.min.css";
 
 export default {
+  components: {
+    movieLink,
+    ReviewPlaceholder,
+  },
+
   data: () => {
     return {
       loading: true,
 
       movie: {},
       reviews: [],
-    };
-  },
 
-  components: {
-    movieLink,
-    ReviewPlaceholder,
+      videoOptions: {
+        fluid: true,
+        controls: true,
+        sources: [
+          {
+            type: "video/mp4",
+          },
+        ],
+      },
+    };
   },
 
   methods: {
@@ -271,10 +281,6 @@ export default {
     },
   },
 
-  mounted() {
-    new Plyr("#trailer");
-  },
-
   created() {
     let movieId = this.$route.params.movieId;
 
@@ -287,12 +293,19 @@ export default {
       this.loading = false;
     });
   },
+
+  watch: {
+    movie: function (movie) {
+      this.videoOptions.sources[0].src = movie.trailer + "#t=0.5";
+      this.player = videojs(this.$refs.videoPlayer, this.videoOptions);
+    },
+  },
 };
 </script>
 
 <style scoped>
-.trailer iframe {
-  width: 100% !important;
+.video-js {
+  border-radius: 10px;
 }
 
 .movieDescription {
