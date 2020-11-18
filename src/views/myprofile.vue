@@ -286,7 +286,6 @@ export default {
 
   created() {
     let userId = this.$route.params.userId;
-    console.log(userId);
 
     this.$bind("userInfos", db.collection("users").doc(userId));
     this.$bind(

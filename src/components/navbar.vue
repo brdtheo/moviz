@@ -149,7 +149,10 @@
             :name="movie.name"
             :year="movie.year"
             :movieId="movie.id"
-            @event="toggleSearchMode(); navigate(movie.id)"
+            @event="
+              toggleSearchMode();
+              navigate(movie.id);
+            "
           />
         </v-col>
       </v-row>
@@ -158,7 +161,7 @@
 </template>
 
 <script>
-import {router} from "../router/index";
+import { router } from "../router/index";
 import { auth } from "../firebase";
 import { db } from "../firebase";
 import Moviecard from "./moviecard";
@@ -197,7 +200,7 @@ export default {
 
   methods: {
     goToRoute(routeName) {
-      let userId = this.user.id;
+      const userId = this.user.id;
       router.push({ name: routeName, params: { userId: userId } });
     },
 
@@ -218,7 +221,6 @@ export default {
     changeLocale(locale) {
       this.$i18n.locale = locale;
       this.$moment.locale(locale);
-      
     },
 
     navigate: (movieId) => {
@@ -242,7 +244,7 @@ export default {
         db.collection("movies").where("name", "==", input)
       );
     },
-  }
+  },
 };
 </script>
 
