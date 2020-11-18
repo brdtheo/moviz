@@ -15,11 +15,11 @@
           :src="`https://identicon-api.herokuapp.com/${userInfos.username}/256?format=png`"
           alt=""
           class="rounded-circle"
-          v-if="!loading && user && !userInfos.profilePicture"
+          v-if="!loading && user && userInfos && !userInfos.profilePicture"
         />
         <v-tooltip
           right
-          v-if="userInfos.role && userInfos.role == 'superadmin'"
+          v-if="userInfos && userInfos.role && userInfos.role == 'superadmin'"
         >
           <template v-slot:activator="{ on, attrs }">
             <v-icon
@@ -34,7 +34,10 @@
           </template>
           <span>{{ userInfos.role }}</span>
         </v-tooltip>
-        <v-tooltip right v-if="userInfos.role && userInfos.role == 'admin'">
+        <v-tooltip
+          right
+          v-if="userInfos && userInfos.role && userInfos.role == 'admin'"
+        >
           <template v-slot:activator="{ on, attrs }">
             <v-icon
               size="40"
@@ -48,7 +51,10 @@
           </template>
           <span>{{ userInfos.role }}</span>
         </v-tooltip>
-        <v-tooltip right v-if="userInfos.role && userInfos.role == 'moderator'">
+        <v-tooltip
+          right
+          v-if="userInfos && userInfos.role && userInfos.role == 'moderator'"
+        >
           <template v-slot:activator="{ on, attrs }">
             <v-icon
               size="40"
@@ -66,7 +72,7 @@
       <v-col cols="7" sm="auto">
         <div class="d-flex flex-column">
           <h1 class="placeholder placeholder__name mb-2" v-if="loading"></h1>
-          <h1 v-else>{{ userInfos.username }}</h1>
+          <h1 v-if="!loading && userInfos">{{ userInfos.username }}</h1>
           <span class="placeholder placeholder__rating" v-if="loading"></span>
           <p class="mb-0" v-else>
             {{ userReviews.length + " " + $t("writtenreviews") }}
@@ -259,16 +265,30 @@ export default {
 
   watch: {
     userInfos: function (userInfos) {
-      console.log(userInfos);
-      document.title = userInfos.username + titleEnd;
+      if (userInfos) {
+        document.title = userInfos.username + titleEnd;
+      }
+    },
+    "$route.params.userId": function (userId) {
+      this.loading = true;
+      this.$bind("userInfos", db.collection("users").doc(userId));
+      this.$bind(
+        "userReviews",
+        db
+          .collection("reviews")
+          .where("userId", "==", userId)
+          .orderBy("date", "desc")
+      ).then(() => {
+        this.loading = false;
+      });
     },
   },
 
   created() {
     let userId = this.$route.params.userId;
+    console.log(userId);
 
     this.$bind("userInfos", db.collection("users").doc(userId));
-
     this.$bind(
       "userReviews",
       db
