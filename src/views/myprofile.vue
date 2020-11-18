@@ -7,7 +7,7 @@
           v-if="loading"
         ></span>
         <v-img
-          :src="user && userInfos.profilePicture"
+          :src="userInfos && userInfos.profilePicture"
           class="rounded-circle"
           v-else
         ></v-img>
