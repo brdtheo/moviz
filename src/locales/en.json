@@ -30,6 +30,18 @@
         "dark comedy": "dark comedy",
         "documentary": "documentary"
     },
+    "movierow": {
+        "latestaction": "Latest action movies",
+        "allaction": "All action movies",
+        "latestcomedy": "Latest comedy movies",
+        "allcomedy": "All comedy movies",
+        "latestdocumentary": "Latest documentary movies",
+        "alldocumentary": "All documentary movies",
+        "latestdrama": "Latest drama movies",
+        "alldrama": "All drama movies",
+        "latesthorror": "Latest horror movies",
+        "allhorror": "All horror movies"
+    },
     "length": "Length",
     "year": "Year",
     "producers": "Producer(s)",

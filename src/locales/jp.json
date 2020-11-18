@@ -30,6 +30,18 @@
         "dark comedy": "ダークコメディ",
         "documentary": "ドキュメンタリー"
     },
+    "movierow": {
+        "latestaction": "最新のアクション映画",
+        "allaction": "すべてのアクション映画",
+        "latestcomedy": "最新のコメディ映画",
+        "allcomedy": "すべてのコメディ映画",
+        "latestdocumentary": "最新のドキュメンタリー映画",
+        "alldocumentary": "すべてのドキュメンタリー映画",
+        "latestdrama": "最新のドラマ映画",
+        "alldrama": "すべてのドラマ映画",
+        "latesthorror": "最新のホラー映画",
+        "allhorror": "すべてのホラー映画"
+    },
     "length": "長さ",
     "year": "年",
     "producers": "プロデューサー",

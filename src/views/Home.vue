@@ -1,16 +1,21 @@
 <template>
   <div>
-    <lastestMovies />
+    <Movierow />
+    <Movierow genre="action" />
+    <Movierow genre="drama" />
+    <Movierow genre="comedy" />
+    <Movierow genre="horror" />
+    <Movierow genre="documentary" />
   </div>
 </template>
 
 <script>
-import lastestMovies from "../components/lastestmovies";
+import Movierow from "../components/movierow";
 
 export default {
   name: "home",
   components: {
-    lastestMovies,
+    Movierow,
   },
 };
 </script>
