@@ -53,7 +53,7 @@
 <script>
 import MovieCardPlaceholder from "../components/placeholders/MovieCardPlaceholder";
 import filtermovies from "../components/filtermovies";
-import Moviecard from "../components/Moviecard";
+import Moviecard from "../components/moviecard";
 import { db } from "../firebase";
 
 export default {

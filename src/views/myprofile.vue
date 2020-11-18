@@ -184,7 +184,7 @@
 
 <script>
 import ReviewPlaceholder from "../components/placeholders/ReviewPlaceholder";
-import router from "../router/index";
+import {router} from "../router/index";
 import { db } from "../firebase";
 
 export default {

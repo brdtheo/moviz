@@ -3,13 +3,13 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-let titleEnd = ' - Moviz';
+export const titleEnd = ' | Moviz: track, share and comment out 2020 movies';
+export const globalTitle = 'Moviz: track, share and comment out 2020 movies';
 
 const routes = [
   {
     path: '/',
     name: 'home',
-    meta: { title: 'Moviz: the movie hub' },
     component: () => import('../views/home')
   },
   {
@@ -50,17 +50,20 @@ const routes = [
   },
 ]
 
-const router = new VueRouter({
-  //mode: 'history',
+export const router = new VueRouter({
   routes,
   scrollBehavior() {
-    // retourner la position désirée
     return { x: 0, y: 0 }
   }
 })
 
 router.afterEach((to) => {
-  document.title = to.meta.title;
+  if (to.name === 'movie-detail'){
+    document.title = 'loading...';
+  } else if (to.name === 'home'){
+    document.title = globalTitle;
+  } else {
+    document.title = to.meta.title;
+  }
 })
 
-export default router

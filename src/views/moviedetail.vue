@@ -221,7 +221,7 @@
 <script>
 var moment = require("moment");
 import ReviewPlaceholder from "../components/placeholders/ReviewPlaceholder";
-import router from "../router/index";
+import { router, titleEnd } from "../router/index";
 import { db } from "../firebase";
 import movieLink from "../components/movielink";
 import videojs from "video.js";
@@ -283,9 +283,7 @@ export default {
 
   created() {
     let movieId = this.$route.params.movieId;
-
     this.$bind("movie", db.collection("movies").doc(movieId));
-
     this.$bind(
       "reviews",
       db.collection("reviews").where("movieId", "==", movieId)
@@ -296,6 +294,7 @@ export default {
 
   watch: {
     movie: function (movie) {
+      document.title = movie.name + titleEnd;
       this.videoOptions.sources[0].src = movie.trailer + "#t=0.5";
       this.player = videojs(this.$refs.videoPlayer, this.videoOptions);
     },

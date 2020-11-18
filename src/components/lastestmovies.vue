@@ -47,7 +47,7 @@
 
 <script>
 import MovieCardPlaceholder from "./placeholders/MovieCardPlaceholder";
-import Moviecard from "./Moviecard";
+import Moviecard from "./moviecard";
 import { db } from "../firebase";
 
 export default {

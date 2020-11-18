@@ -149,7 +149,7 @@
             :name="movie.name"
             :year="movie.year"
             :movieId="movie.id"
-            @event="toggleSearchMode()"
+            @event="toggleSearchMode(); navigate(movie.id)"
           />
         </v-col>
       </v-row>
@@ -158,10 +158,10 @@
 </template>
 
 <script>
-import router from "../router/index";
+import {router} from "../router/index";
 import { auth } from "../firebase";
 import { db } from "../firebase";
-import Moviecard from "./Moviecard";
+import Moviecard from "./moviecard";
 
 export default {
   name: "Navbar",

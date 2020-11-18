@@ -133,7 +133,7 @@
 </template>
 
 <script>
-import router from "../router/index";
+import {router} from "../router/index";
 import { auth } from "../firebase";
 import { db } from "../firebase";
 
