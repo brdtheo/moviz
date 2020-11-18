@@ -58,7 +58,7 @@ export const router = new VueRouter({
 })
 
 router.afterEach((to) => {
-  if (to.name === 'movie-detail'){
+  if (to.name === 'movie-detail' || to.name === 'my-profile'){
     document.title = 'loading...';
   } else if (to.name === 'home'){
     document.title = globalTitle;

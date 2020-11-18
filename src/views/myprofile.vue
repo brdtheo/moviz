@@ -15,7 +15,7 @@
           :src="`https://identicon-api.herokuapp.com/${userInfos.username}/256?format=png`"
           alt=""
           class="rounded-circle"
-          v-if="user && !userInfos.profilePicture"
+          v-if="!loading && user && !userInfos.profilePicture"
         />
         <v-tooltip
           right
@@ -156,11 +156,7 @@
               class="dark darken-1 mb-4"
               hide-details="auto"
             ></v-text-field>
-            <v-chip
-              @click="sendEditedReview()"
-              color="indigo"
-              class="mr-2"
-            >
+            <v-chip @click="sendEditedReview()" color="indigo" class="mr-2">
               {{ $t("save") }}
             </v-chip>
           </v-card-text>
@@ -184,7 +180,7 @@
 
 <script>
 import ReviewPlaceholder from "../components/placeholders/ReviewPlaceholder";
-import {router} from "../router/index";
+import { router, titleEnd } from "../router/index";
 import { db } from "../firebase";
 
 export default {
@@ -258,6 +254,13 @@ export default {
       } catch (error) {
         console.error(error);
       }
+    },
+  },
+
+  watch: {
+    userInfos: function (userInfos) {
+      console.log(userInfos);
+      document.title = userInfos.username + titleEnd;
     },
   },
 
