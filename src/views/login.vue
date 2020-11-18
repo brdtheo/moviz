@@ -133,7 +133,7 @@
 </template>
 
 <script>
-import {router} from "../router/index";
+import { router } from "../router/index";
 import { auth } from "../firebase";
 import { db } from "../firebase";
 
@@ -306,36 +306,41 @@ export default {
 };
 </script>
 
-<style lang="sass" scoped>
-.grayscale
-  filter: grayscale(1)
-.registerBtn
-  border-radius: 0 !important
-  font-weight: inherit !important
-  color: inherit !important
-  min-width: inherit !important
-  height: inherit !important
-  padding: 0 !important
-  font-size: inherit !important
-  box-shadow: none !important
-  background-color: transparent !important
-  border: none !important
-  text-transform: none !important
-  letter-spacing: inherit !important
-  position: relative !important
-  &:hover
-    &::before
-      height: 100% !important
+<style scoped>
+.grayscale {
+  filter: grayscale(1);
+}
 
-.registerBtn::before
-  top: inherit !important
-  bottom: 0 !important
-  left: 0 !important
-  position: absolute !important
-  display: block !important
-  background-color: #3f51b5 !important
-  width: 100% !important
-  height: 25% !important
-  opacity: inherit !important
-  transition: height ease-in 100ms
+.registerBtn {
+  border-radius: 0 !important;
+  font-weight: inherit !important;
+  color: inherit !important;
+  min-width: inherit !important;
+  height: inherit !important;
+  padding: 0 !important;
+  font-size: inherit !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+  border: none !important;
+  text-transform: none !important;
+  letter-spacing: inherit !important;
+  position: relative !important;
+}
+
+.registerBtn:hover::before {
+  height: 100% !important;
+}
+
+.registerBtn::before {
+  top: inherit !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  position: absolute !important;
+  display: block !important;
+  background-color: #3f51b5 !important;
+  width: 100% !important;
+  height: 25% !important;
+  opacity: inherit !important;
+  transition: height ease-in 100ms;
+}
 </style>
