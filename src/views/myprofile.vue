@@ -80,7 +80,7 @@
       </v-col>
       <v-col cols="12" v-for="review in userReviews" :key="review.id" v-else>
         <v-card class="grey darken-3 review" dark>
-          <div class="px-4 pt-2" v-if="review.author === user.username">
+          <div class="px-4 pt-2" v-if="user && review.author === user.username">
             <v-chip
               v-if="selectedReview.id != review.id"
               @click="editReview(review)"
