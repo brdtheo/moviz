@@ -3,12 +3,12 @@
     <div>
       <v-row justify="center">
         <v-col cols="12" sm="6">
-          <div v-if="currentUser && currentUser.role !== 'superadmin'">
+          <div v-if="!user || (user && user.role !== 'superadmin')">
             <v-alert color="error" dark text icon="mdi-alert-octagon">
               You are not allowed to see this page
             </v-alert>
           </div>
-          <div v-if="currentUser && currentUser.role == 'superadmin'">
+          <div v-if="user && user.role == 'superadmin'">
             <h2 class="font-weight-light mb-5">{{ $t("addamovie") }}</h2>
 
             <v-text-field
@@ -104,7 +104,7 @@
 
             <v-text-field
               v-model="newMovie.trailer"
-              label="trailer ID"
+              label="trailer"
               background-color="grey darken-3"
               dark
               solo
@@ -146,8 +146,18 @@
               </v-col>
               <v-col cols="3" class="py-0">
                 <v-text-field
-                  v-model="newMovie.links.googlePlay"
+                  v-model="newMovie.links.googlePlus"
                   label="Google Play"
+                  background-color="grey darken-3"
+                  dark
+                  solo
+                  dense
+                ></v-text-field>
+              </v-col>
+              <v-col cols="3" class="py-0">
+                <v-text-field
+                  v-model="newMovie.links.disneyPlus"
+                  label="Disney+"
                   background-color="grey darken-3"
                   dark
                   solo
@@ -274,7 +284,7 @@ export default {
         description: {
           en: "",
           fr: "",
-          jp: ""
+          jp: "",
         },
         length: "",
         year: "",
@@ -284,7 +294,6 @@ export default {
         links: {},
         producers: [],
         genre: [],
-        uploadDate: new Date(),
       },
 
       // insert
@@ -296,7 +305,8 @@ export default {
   methods: {
     addMovie() {
       let newMovie = this.newMovie;
-      let vm = this.$data;
+      const vm = this.$data;
+      newMovie.uploadDate = new Date();
 
       db.collection("movies")
         .add(newMovie)
