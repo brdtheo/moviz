@@ -48,6 +48,11 @@ const routes = [
     meta: { title: 'admin' + titleEnd },
     component: () => import('../views/admin.vue')
   },
+  {
+    path: '*',
+    meta: { title: '[404] Error' + titleEnd },
+    component: () => import('../views/404.vue')
+  },
 ]
 
 export const router = new VueRouter({
