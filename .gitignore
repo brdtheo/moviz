@@ -20,5 +20,4 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
-*.sh
-src/firebase.js
+#src/firebase.js
