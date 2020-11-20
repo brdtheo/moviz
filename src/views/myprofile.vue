@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="compressedWrapper">
     <v-row>
       <v-col cols="5" sm="auto" class="p-relative">
         <span
@@ -12,10 +12,10 @@
           v-else
         ></v-img>
         <v-img
-          :src="`https://identicon-api.herokuapp.com/${userInfos.username}/256?format=png`"
+          :src="`https://identicon-api.herokuapp.com/${userInfos.username}/128?format=png`"
           alt=""
           class="rounded-circle"
-          v-if="!loading && user && userInfos && !userInfos.profilePicture"
+          v-if="!loading && userInfos && !userInfos.profilePicture"
         />
         <v-tooltip
           right
@@ -155,18 +155,19 @@
             dense
           ></v-rating>
           <v-card-text v-if="selectedReview.id == review.id">
-            <v-text-field
+            <v-textarea
               v-model="selectedReview.description"
-              color="indigo"
               solo
-              class="dark darken-1 mb-4"
+              background-color="grey darken-4"
               hide-details="auto"
-            ></v-text-field>
-            <v-chip @click="sendEditedReview()" color="indigo" class="mr-2">
-              {{ $t("save") }}
-            </v-chip>
+            ></v-textarea>
           </v-card-text>
           <v-card-text v-else>{{ review.description }}</v-card-text>
+          <v-card-actions class="px-4 pb-3" v-if="selectedReview.id == review.id">
+            <v-btn small @click="sendEditedReview()" color="indigo" class="mr-2">
+              {{ $t("save") }}
+            </v-btn>
+          </v-card-actions>
         </v-card>
       </v-col>
     </v-row>

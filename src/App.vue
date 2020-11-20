@@ -144,4 +144,9 @@ export default {
   height: 32px;
   border-radius: 50%;
 }
+
+.compressedWrapper {
+  max-width: 900px;
+  margin: 0 auto;
+}
 </style>
