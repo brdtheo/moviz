@@ -79,5 +79,8 @@
     "cancel": "annuler",
     "save": "enregistrer",
     "reviewedited": "avis modifié",
-    "editedon": "modifié le"
+    "editedon": "modifié le",
+    "submit": "envoyer",
+    "writeareview": "Rédiger un avis",
+    "youdidntwriteareviewforthismovieyet": "Vous n'avez pas encore rédigé d'avis pour ce film."
 }

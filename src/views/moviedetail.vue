@@ -172,24 +172,95 @@
     <div class="mt-15">
       <h3 class="ma-0">{{ $t("userreviews") }}</h3>
 
+      <v-row>
+        <v-col>
+          <v-alert
+            color="indigo"
+            dark
+            v-if="user && writtenReview.length == 0 && !writingReview"
+          >
+            <p class="ma-0">{{ $t("youdidntwriteareviewforthismovieyet") }}</p>
+            <v-btn small class="mt-2" @click="writingReview = true">
+              {{ $t("writeareview") }}
+            </v-btn>
+          </v-alert>
+
+          <v-card class="indigo" dark v-if="writingReview">
+            <v-card-title class="subtitle-1 pb-0">
+              <span v-if="user">{{ user.username }}</span>
+            </v-card-title>
+            <v-rating
+              background-color="grey"
+              color="yellow"
+              class="px-3"
+              length="5"
+              v-model="writingReviewObj.rating"
+              small
+              dense
+            ></v-rating>
+            <v-card-text>
+              <v-textarea
+                v-model="writingReviewObj.description"
+                solo
+                background-color="grey darken-4"
+                hide-details="auto"
+              ></v-textarea>
+            </v-card-text>
+            <v-card-actions class="px-4 pb-3">
+              <v-btn small @click="cancelWriteReview()">
+                {{ $t("cancel") }}
+              </v-btn>
+              <v-btn small color="success" @click="insertWroteReview()">
+                {{ $t("submit") }}
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+
+          <v-card class="indigo mb-8" dark v-if="writtenReview[0]">
+            <v-card-title class="subtitle-1 pb-0">
+              <span v-if="user">{{ writtenReview[0].author }}</span>
+            </v-card-title>
+            <v-rating
+              background-color="grey"
+              color="yellow"
+              class="px-3"
+              length="5"
+              :value="writtenReview[0].rating"
+              small
+              readonly
+              dense
+            ></v-rating>
+            <v-card-text>
+              <p class="mb-0">{{ writtenReview[0].description }}</p>
+              <small v-if="writtenReview[0].edited">
+                <em>
+                  {{
+                    `${$t("editedon")} ${formatEditedDate(
+                      writtenReview[0].edited
+                    )}`
+                  }}
+                </em>
+              </small>
+            </v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
+
       <v-row class="mb-0">
         <v-col cols="12" v-if="loading">
           <ReviewPlaceholder />
         </v-col>
         <v-col v-else>
           <v-card
-            class="grey darken-3"
+            class="grey darken-3 mb-5"
             dark
             v-for="review in reviews"
             :key="review.id"
           >
             <v-card-title class="subtitle-1 pb-0">
-              <v-avatar size="24" class="mr-2" v-if="review.user">
-                <img alt="" />
-              </v-avatar>
-              <span class="pointer" @click="goToUserProfile(review.userId)">{{
-                review.author
-              }}</span>
+              <span class="pointer" @click="goToUserProfile(review.userId)">
+                {{ review.author }}
+              </span>
             </v-card-title>
             <v-rating
               background-color="grey"
@@ -197,7 +268,6 @@
               class="px-3"
               length="5"
               :value="review.rating"
-              half-increments
               readonly
               small
               dense
@@ -239,6 +309,12 @@ export default {
 
       movie: {},
       reviews: [],
+      writtenReview: [],
+      writingReview: false,
+      writingReviewObj: {
+        rating: 0,
+        description: "",
+      },
 
       videoOptions: {
         fluid: true,
@@ -253,6 +329,39 @@ export default {
   },
 
   methods: {
+    async insertWroteReview() {
+      try {
+        const review = this.writingReviewObj;
+        review.author = this.user.username;
+        review.userId = this.user.id;
+        review.movieId = this.$route.params.movieId;
+        review.movieName = this.movie.name;
+        review.date = new Date();
+
+        let reviewId = null;
+        await db
+          .collection("reviews")
+          .add(review)
+          .then((doc) => {
+            reviewId = doc.id;
+          });
+        console.log(reviewId);
+
+        await db.collection("reviews").doc(reviewId).update({
+          id: reviewId,
+        });
+        this.cancelWriteReview();
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    cancelWriteReview() {
+      this.writingReview = false;
+      this.writingReviewObj.rating = 0;
+      this.writingReviewObj.text = "";
+    },
+
     goToUserProfile(userId) {
       router.push({ name: "my-profile", params: { userId: userId } });
     },
@@ -281,6 +390,17 @@ export default {
     },
   },
 
+  computed: {
+    hasWrittenReview() {
+      let movieId = this.$route.params.movieId;
+      let userId = this.user.id;
+      return db
+        .collection("reviews")
+        .where("movieId", "==", movieId)
+        .where("userId", "==", userId);
+    },
+  },
+
   created() {
     let movieId = this.$route.params.movieId;
     this.$bind("movie", db.collection("movies").doc(movieId));
@@ -297,6 +417,16 @@ export default {
       document.title = movie.name + titleEnd;
       this.videoOptions.sources[0].src = movie.trailer + "#t=0.5";
       this.player = videojs(this.$refs.videoPlayer, this.videoOptions);
+    },
+
+    user: function (user) {
+      this.$bind(
+        "writtenReview",
+        db
+          .collection("reviews")
+          .where("movieId", "==", this.$route.params.movieId)
+          .where("userId", "==", user.id)
+      );
     },
   },
 };
@@ -329,10 +459,5 @@ export default {
 
 .movieYear {
   font-size: 15px;
-}
-
-.compressedWrapper {
-  max-width: 900px;
-  margin: 0 auto;
 }
 </style>

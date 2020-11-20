@@ -79,5 +79,8 @@
     "cancel": "cancel",
     "save": "save",
     "reviewedited": "review edited",
-    "editedon": "edited on"
+    "editedon": "edited on",
+    "submit": "sumbit",
+    "writeareview": "Write a review",
+    "youdidntwriteareviewforthismovieyet": "You didn't write a review for this movie yet."
 }

@@ -79,5 +79,8 @@
     "cancel": "キャンセル",
     "save": "セーブ",
     "reviewedited": "レビュー編集",
-    "editedon": "で編集"
+    "editedon": "で編集",
+    "submit": "参加する",
+    "writeareview": "レビューを書く",
+    "youdidntwriteareviewforthismovieyet": "この映画のレビューはまだ書いていません。"
 }
