@@ -172,7 +172,7 @@
     <div class="mt-15">
       <h3 class="ma-0">{{ $t("userreviews") }}</h3>
 
-      <v-row>
+      <v-row v-if="user">
         <v-col>
           <v-alert
             color="indigo"
