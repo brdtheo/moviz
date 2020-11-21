@@ -119,7 +119,7 @@
           </span>
         </p>
       </v-col>
-      <v-col cols="2">
+      <v-col cols="6" sm="2">
         <h4 class="font-weight-medium">{{ $t("watchnow") }}</h4>
         <span
           class="placeholder placeholder__moviedetail__text"
@@ -440,7 +440,7 @@ export default {
     },
 
     formatEditedDate(date) {
-      return moment().calendar(date.toDate());
+      return moment(date.toDate()).calendar();
     },
   },
 
