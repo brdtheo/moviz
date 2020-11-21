@@ -82,5 +82,7 @@
     "editedon": "で編集",
     "submit": "参加する",
     "writeareview": "レビューを書く",
-    "youdidntwriteareviewforthismovieyet": "この映画のレビューはまだ書いていません。"
+    "youdidntwriteareviewforthismovieyet": "この映画のレビューはまだ書いていません。",
+    "restrict": "制限する",
+    "thisreviewhasbeenrestricted": "このレビューは制限されています"
 }

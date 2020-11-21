@@ -82,5 +82,7 @@
     "editedon": "edited on",
     "submit": "sumbit",
     "writeareview": "Write a review",
-    "youdidntwriteareviewforthismovieyet": "You didn't write a review for this movie yet."
+    "youdidntwriteareviewforthismovieyet": "You didn't write a review for this movie yet.",
+    "restrict": "restrict",
+    "thisreviewhasbeenrestricted": "this review has been restricted"
 }

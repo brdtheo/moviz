@@ -149,4 +149,9 @@ export default {
   max-width: 900px;
   margin: 0 auto;
 }
+
+.restricted {
+  filter: blur(4px);
+  user-select: none;
+}
 </style>

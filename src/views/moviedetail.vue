@@ -257,6 +257,45 @@
             v-for="review in reviews"
             :key="review.id"
           >
+            <v-alert
+              type="error"
+              icon="mdi-alert-octagon"
+              class="ma-0"
+              outlined
+              dense
+              v-if="review.restricted"
+            >
+              {{ $t("thisreviewhasbeenrestricted") }}
+            </v-alert>
+            <div
+              class="px-4 pt-2"
+              v-if="
+                user &&
+                user.role === 'moderator' &&
+                review.author !== user.username &&
+                !review.restricted
+              "
+            >
+              <v-chip
+                color="error"
+                class="mr-2"
+                small
+                @click="restrictReview(review.id)"
+              >
+                <v-icon left size="15">mdi-alert-octagon</v-icon>
+                {{ $t("restrict") }}
+              </v-chip>
+              <v-snackbar
+                v-model="restrictedreview"
+                color="success"
+                outlined
+                right
+                timeout="2000"
+                bottom
+              >
+                {{ $t("thisreviewhasbeenrestricted") }}
+              </v-snackbar>
+            </div>
             <v-card-title class="subtitle-1 pb-0">
               <span class="pointer" @click="goToUserProfile(review.userId)">
                 {{ review.author }}
@@ -273,7 +312,7 @@
               dense
             ></v-rating>
             <v-card-text>
-              <p class="mb-0">{{ review.description }}</p>
+              <p class="mb-0" :class="{restricted: review.restricted}">{{ review.description }}</p>
               <small v-if="review.edited">
                 <em>{{
                   `${$t("editedon")} ${formatEditedDate(review.edited)}`
@@ -316,6 +355,8 @@ export default {
         description: "",
       },
 
+      restrictedreview: false,
+
       videoOptions: {
         fluid: true,
         controls: true,
@@ -329,6 +370,19 @@ export default {
   },
 
   methods: {
+    async restrictReview(id) {
+      try {
+        await db.collection("reviews").doc(id).update({
+          restricted: true,
+        });
+        setTimeout(() => {
+          this.restrictedreview = true;
+        }, 2000);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
     async insertWroteReview() {
       try {
         const review = this.writingReviewObj;

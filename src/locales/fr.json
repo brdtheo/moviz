@@ -82,5 +82,7 @@
     "editedon": "modifié le",
     "submit": "envoyer",
     "writeareview": "Rédiger un avis",
-    "youdidntwriteareviewforthismovieyet": "Vous n'avez pas encore rédigé d'avis pour ce film."
+    "youdidntwriteareviewforthismovieyet": "Vous n'avez pas encore rédigé d'avis pour ce film.",
+    "restrict": "restreindre",
+    "thisreviewhasbeenrestricted": "cet avis a été restreint"
 }

@@ -86,9 +86,20 @@
       </v-col>
       <v-col cols="12" v-for="review in userReviews" :key="review.id" v-else>
         <v-card class="grey darken-3 review" dark>
+          <v-alert
+            type="error"
+            icon="mdi-alert-octagon"
+            class="ma-0"
+            outlined
+            dense
+            v-if="review.restricted"
+          >
+            {{ $t("thisreviewhasbeenrestricted") }}
+          </v-alert>
+
           <div class="px-4 pt-2" v-if="user && review.author === user.username">
             <v-chip
-              v-if="selectedReview.id != review.id"
+              v-if="selectedReview.id != review.id && !review.restricted"
               @click="editReview(review)"
               color="indigo"
               class="mr-2"
@@ -162,9 +173,21 @@
               hide-details="auto"
             ></v-textarea>
           </v-card-text>
-          <v-card-text v-else>{{ review.description }}</v-card-text>
-          <v-card-actions class="px-4 pb-3" v-if="selectedReview.id == review.id">
-            <v-btn small @click="sendEditedReview()" color="indigo" class="mr-2">
+          <v-card-text v-else
+            ><p :class="{ restricted: review.restricted }">
+              {{ review.description }}
+            </p></v-card-text
+          >
+          <v-card-actions
+            class="px-4 pb-3"
+            v-if="selectedReview.id == review.id"
+          >
+            <v-btn
+              small
+              @click="sendEditedReview()"
+              color="indigo"
+              class="mr-2"
+            >
               {{ $t("save") }}
             </v-btn>
           </v-card-actions>
