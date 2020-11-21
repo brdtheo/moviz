@@ -45,7 +45,7 @@ const routes = [
   {
     path: '/admin/:userId',
     name: 'back-office',
-    meta: { title: 'admin' + titleEnd },
+    meta: { title: 'add a movie' + titleEnd },
     component: () => import('../views/admin.vue')
   },
   {
