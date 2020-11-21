@@ -106,10 +106,10 @@
                     class="indigo"
                     dark
                     link
-                    v-if="user.role && user.role == 'superadmin'"
+                    v-if="user.role && user.role == 'superadmin' || user.role == 'admin'"
                     @click="goToRoute('back-office')"
                   >
-                    <v-list-item-title> superadmin </v-list-item-title>
+                    <v-list-item-title> add a movie </v-list-item-title>
                   </v-list-item>
                   <v-list-item link @click="goToRoute('my-profile')">
                     <v-list-item-title>
