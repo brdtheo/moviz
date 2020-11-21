@@ -2,6 +2,12 @@
   <div class="compressedWrapper">
     <v-row>
       <v-col cols="5" sm="auto" class="p-relative">
+        <div
+          class="bannedBadge rounded-xl error"
+          v-if="userInfos && userInfos.isBanned"
+        >
+          <v-icon dark size="60">mdi-gavel</v-icon>
+        </div>
         <span
           class="placeholder placeholder__profilepicture"
           v-if="loading"
@@ -77,6 +83,61 @@
           <p class="mb-0" v-else>
             {{ userReviews.length + " " + $t("writtenreviews") }}
           </p>
+          <div
+            class="mt-2"
+            v-if="
+              user &&
+              userInfos &&
+              user.role == 'superadmin' &&
+              userInfos.username !== user.username &&
+              !userInfos.isBanned
+            "
+          >
+            <v-btn
+              small
+              color="error"
+              tile
+              text
+              v-if="
+                (userInfos && userInfos.role == 'admin') ||
+                userInfos.role == 'moderator'
+              "
+              @click="removePrivileges()"
+            >
+              <v-icon size="18" class="mr-2">mdi-account-minus</v-icon>
+              {{$t('removeprivileges')}}
+            </v-btn>
+            <v-btn
+              small
+              dark
+              tile
+              text
+              @click="addRole('moderator')"
+              v-if="
+                !(userInfos.role == 'moderator' || userInfos.role == 'admin')
+              "
+            >
+              <v-icon size="18" class="mr-2">mdi-alpha-m</v-icon>
+              {{$t('addmoderatorrole')}}
+            </v-btn>
+            <v-btn
+              small
+              dark
+              tile
+              text
+              @click="addRole('admin')"
+              v-if="
+                !(userInfos.role == 'moderator' || userInfos.role == 'admin')
+              "
+            >
+              <v-icon size="18" class="mr-2">mdi-alpha-a</v-icon>
+              {{$t('addadminrole')}}
+            </v-btn>
+            <v-btn small color="error" tile text @click="banUser()">
+              <v-icon size="18" class="mr-2">mdi-gavel</v-icon>
+              {{ $t("banuser") }}
+            </v-btn>
+          </div>
         </div>
       </v-col>
     </v-row>
@@ -173,11 +234,11 @@
               hide-details="auto"
             ></v-textarea>
           </v-card-text>
-          <v-card-text v-else
-            ><p :class="{ restricted: review.restricted }">
+          <v-card-text v-else>
+            <p :class="{ restricted: review.restricted }">
               {{ review.description }}
-            </p></v-card-text
-          >
+            </p>
+          </v-card-text>
           <v-card-actions
             class="px-4 pb-3"
             v-if="selectedReview.id == review.id"
@@ -238,6 +299,48 @@ export default {
   },
 
   methods: {
+    async banUser() {
+      let userId = this.$route.params.userId;
+      let oldUsername = this.userInfos.username;
+
+      try {
+        await db
+          .collection("users")
+          .doc(userId)
+          .update({
+            username: `[banned] ${oldUsername}`,
+            role: "user",
+            isBanned: true,
+          });
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    async addRole(role) {
+      let userId = this.$route.params.userId;
+
+      try {
+        await db.collection("users").doc(userId).update({
+          role: role,
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    async removePrivileges() {
+      let userId = this.$route.params.userId;
+
+      try {
+        await db.collection("users").doc(userId).update({
+          role: "user",
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
     navigateToMovie(id) {
       router.push({ name: "movie-detail", params: { movieId: id } });
     },
@@ -293,6 +396,7 @@ export default {
         document.title = userInfos.username + titleEnd;
       }
     },
+
     "$route.params.userId": function (userId) {
       this.loading = true;
       this.$bind("userInfos", db.collection("users").doc(userId));

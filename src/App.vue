@@ -4,7 +4,12 @@
 
     <v-main class="pa-0 grey darken-4 white--text">
       <v-container>
-        <router-view></router-view>
+
+        <div class="compressedWrapper mt-5" v-if="user && user.isBanned">
+          <v-alert type="error" outlined icon="mdi-gavel">{{$t('youraccounthasbeenbanned')}}</v-alert>
+        </div>
+
+        <router-view v-else></router-view>
       </v-container>
     </v-main>
 
@@ -153,5 +158,16 @@ export default {
 .restricted {
   filter: blur(4px);
   user-select: none;
+}
+
+.bannedBadge {
+  width: 128px;
+  height: 128px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  z-index: 1;
+  opacity: 0.9;
 }
 </style>

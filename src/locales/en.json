@@ -84,5 +84,11 @@
     "writeareview": "Write a review",
     "youdidntwriteareviewforthismovieyet": "You didn't write a review for this movie yet.",
     "restrict": "restrict",
-    "thisreviewhasbeenrestricted": "this review has been restricted"
+    "thisreviewhasbeenrestricted": "this review has been restricted",
+    "youarenotallowedtoseethispage": "You are not allowed to see this page",
+    "addmoderatorrole": "add moderator role",
+    "addadminrole": "add admin role",
+    "removeprivileges": "remove privileges",
+    "banuser": "ban user",
+    "youraccounthasbeenbanned": "Your account has been banned"
 }

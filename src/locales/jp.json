@@ -84,5 +84,11 @@
     "writeareview": "レビューを書く",
     "youdidntwriteareviewforthismovieyet": "この映画のレビューはまだ書いていません。",
     "restrict": "制限する",
-    "thisreviewhasbeenrestricted": "このレビューは制限されています"
+    "thisreviewhasbeenrestricted": "このレビューは制限されています",
+    "youarenotallowedtoseethispage": "このページは表示できません",
+    "addmoderatorrole": "モデレーターの役割を追加する",
+    "addadminrole": "管理者の役割を追加する",
+    "removeprivileges": "特権を撤回する",
+    "banuser": "ユーザーを禁止する",
+    "youraccounthasbeenbanned": "あなたのアカウントは禁止されています"
 }
