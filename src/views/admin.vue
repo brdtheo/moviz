@@ -3,12 +3,16 @@
     <div>
       <v-row justify="center">
         <v-col cols="12" sm="6">
-          <div v-if="!user || (user && user.role !== 'superadmin')">
+          <div
+            v-if="user && !(user.role == 'admin' || user.role == 'superadmin')"
+          >
             <v-alert color="error" dark text icon="mdi-alert-octagon">
-              You are not allowed to see this page
+              {{ $t("youarenotallowedtoseethispage") }}
             </v-alert>
           </div>
-          <div v-if="user && user.role == 'superadmin'">
+          <div
+            v-if="user && (user.role == 'superadmin' || user.role == 'admin')"
+          >
             <h2 class="font-weight-light mb-5">{{ $t("addamovie") }}</h2>
 
             <v-text-field
@@ -250,8 +254,6 @@ import { db } from "../firebase";
 export default {
   data() {
     return {
-      currentUser: null,
-
       genres: [
         "action",
         "adventure",
@@ -319,16 +321,6 @@ export default {
           vm.errorInsert = true;
         });
     },
-  },
-
-  created() {
-    let userId = this.$route.params.userId;
-
-    this.$bind("currentUser", db.collection("users").doc(userId)).then(
-      (user) => {
-        this.currentUser = user;
-      }
-    );
   },
 };
 </script>
