@@ -1,14 +1,29 @@
 <template>
-  <v-card
-    tile
-    @mouseover="displayDetails = true"
-    @mouseleave="displayDetails = false"
-    @click="
-      navigate(movieId);
-      $emit('event');
-    "
-  >
-    <v-img position="bottom" height="250" :src="poster" alt="">
+  <v-card tile>
+    <v-btn
+      class="m-0 error"
+      block
+      small
+      depressed
+      tile
+      v-if="user && user.role == 'admin'"
+      @click="deleteMovie(movieId)"
+    >
+      {{ $t("delete") }}
+    </v-btn>
+    <v-img
+      class="pointer"
+      position="bottom"
+      height="250"
+      :src="poster"
+      alt=""
+      @mouseover="displayDetails = true"
+      @mouseleave="displayDetails = false"
+      @click="
+        navigate(movieId);
+        $emit('event');
+      "
+    >
       <transition name="fade">
         <div class="movieDetails pa-5" v-if="displayDetails">
           <h4>{{ name }}</h4>
@@ -22,7 +37,8 @@
 </template>
 
 <script>
-import {router} from "../router/index";
+import { router } from "../router/index";
+import { db } from "../firebase";
 
 export default {
   name: "Moviecard",
@@ -55,6 +71,14 @@ export default {
   methods: {
     navigate(id) {
       router.push({ name: "movie-detail", params: { movieId: id } });
+    },
+
+    async deleteMovie(id) {
+      try {
+        await db.collection("movies").doc(id).delete();
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 };
