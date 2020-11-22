@@ -170,4 +170,8 @@ export default {
   z-index: 1;
   opacity: 0.9;
 }
+
+.overflow-x-scroll {
+  overflow-x: scroll;
+}
 </style>

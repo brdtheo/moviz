@@ -1,9 +1,10 @@
 <template>
-  <div class="py-8 py-sm-16">
+  <div>
     <filtermovies
-      @enable-netflix-only="enableNetflixOnly()"
-      @disable-netflix-only="disableNetflixOnly()"
+      @select-platform="selectPlatform"
       @sort="sort($event)"
+      @unselect-platform="unselectPlatform()"
+      @select-genre="selectGenre"
     />
 
     <div class="mb-5 d-flex justify-space-between align-center">
@@ -67,67 +68,41 @@ export default {
     return {
       movies: [],
       loading: true,
-
-      // filters
-      displayNetflixOnly: false,
     };
   },
 
   methods: {
-    enableNetflixOnly() {
-      if (!this.displayNetflixOnly) {
-        this.loading = true;
-        this.displayNetflixOnly = true;
+    selectGenre(array) {
+      this.loading = true;
+      if (array.length == 0) {
+        this.$bind("movies", db.collection("movies")).then(() => {
+          this.loading = false;
+        });
+      } else {
         this.$bind(
           "movies",
-          db.collection("movies").where("links.netflix", "!=", "")
+          db.collection("movies").where("genre", "array-contains-any", array)
         ).then(() => {
           this.loading = false;
         });
       }
     },
 
-    disableNetflixOnly() {
+    selectPlatform(platform) {
       this.loading = true;
-      this.displayNetflixOnly = false;
-      this.$bind("movies", db.collection("movies").orderBy("name")).then(() => {
+      this.$bind(
+        "movies",
+        db.collection("movies").where("links." + platform, "!=", "")
+      ).then(() => {
         this.loading = false;
       });
     },
 
-    sort(options) {
-      let vm = this.$data;
-
-      if (this.displayNetflixOnly) {
-        if (options == "ascendingName") {
-          console.log("netflix + ascending name");
-        }
-        if (options == "descendingName") {
-          console.log("netflix + descending name");
-        }
-      }
-      if (!this.displayNetflixOnly) {
-        if (options == "ascendingName") {
-          console.log("no netflix + ascending name");
-          vm.loading = true;
-          this.$bind(
-            "movies",
-            db.collection("movies").orderBy("name", "asc")
-          ).then(() => {
-            vm.loading = false;
-          });
-        }
-        if (options == "descendingName") {
-          console.log("no netflix + descending name");
-          vm.loading = true;
-          this.$bind(
-            "movies",
-            db.collection("movies").orderBy("name", "desc")
-          ).then(() => {
-            vm.loading = false;
-          });
-        }
-      }
+    unselectPlatform() {
+      this.loading = true;
+      this.$bind("movies", db.collection("movies")).then(() => {
+        this.loading = false;
+      });
     },
   },
 
