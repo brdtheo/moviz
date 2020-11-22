@@ -1,5 +1,5 @@
 <template>
-  <div class="py-8 py-sm-16">
+  <div>
     <v-container class="pa-0">
       <div class="mb-5 d-flex justify-space-between align-center">
         <h2 class="font-weight-light">
