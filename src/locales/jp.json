@@ -90,5 +90,10 @@
     "addadminrole": "管理者の役割を追加する",
     "removeprivileges": "特権を撤回する",
     "banuser": "ユーザーを禁止する",
-    "youraccounthasbeenbanned": "あなたのアカウントは禁止されています"
+    "youraccounthasbeenbanned": "あなたのアカウントは禁止されています",
+    "copiedtoclipboard": "クリップボードにコピー",
+    "copytoclipboard": "クリップボードにコピー",
+    "shareontwitter": "ツイッターで共有",
+    "shareonfacebook": "Facebookでシェア",
+    "shareviaemail": "メールで共有"
 }

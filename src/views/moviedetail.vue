@@ -47,6 +47,83 @@
       </v-col>
     </v-row>
     <v-row>
+      <v-col class="d-flex justify-center">
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              class="indigo mx-1"
+              v-bind="attrs"
+              v-on="on"
+              dark
+              icon
+              @click="copyToClipboard()"
+            >
+              <v-icon size="20">mdi-link</v-icon>
+            </v-btn>
+          </template>
+          <span>{{ $t("copytoclipboard") }}</span>
+        </v-tooltip>
+
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              class="indigo mx-1"
+              v-bind="attrs"
+              v-on="on"
+              dark
+              icon
+              :href="
+                'https://twitter.com/intent/tweet?url=https://brdtheo.github.io/moviz/#/movie/' +
+                $route.params.movieId +
+                '&text='
+              "
+            >
+              <v-icon size="20">mdi-twitter</v-icon>
+            </v-btn>
+          </template>
+          <span>{{ $t("shareontwitter") }}</span>
+        </v-tooltip>
+
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              class="indigo mx-1"
+              v-bind="attrs"
+              v-on="on"
+              dark
+              icon
+              :href="
+                'https://www.facebook.com/sharer/sharer.php?u=https://brdtheo.github.io/moviz/#/movie/' +
+                $route.params.movieId
+              "
+            >
+              <v-icon size="20">mdi-facebook</v-icon>
+            </v-btn>
+          </template>
+          <span>{{ $t("shareonfacebook") }}</span>
+        </v-tooltip>
+
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              class="indigo mx-1"
+              v-bind="attrs"
+              v-on="on"
+              dark
+              icon
+              :href="
+                'mailto:?&subject=&body=Check out this movie on Moviz: https://brdtheo.github.io/moviz/#/movie/' +
+                $route.params.movieId
+              "
+            >
+              <v-icon size="20">mdi-email</v-icon>
+            </v-btn>
+          </template>
+          <span>{{ $t("shareviaemail") }}</span>
+        </v-tooltip>
+      </v-col>
+    </v-row>
+    <v-row>
       <v-col>
         <span
           class="placeholder placeholder__description"
@@ -119,13 +196,24 @@
           </span>
         </p>
       </v-col>
-      <v-col cols="6" sm="2">
+      <v-col
+        cols="6"
+        sm="2"
+        v-if="
+          movie.links &&
+          (movie.links.googlePlay ||
+            movie.links.amazonPrime ||
+            movie.links.disneyPlus ||
+            movie.links.netflix ||
+            movie.links.youtube)
+        "
+      >
         <h4 class="font-weight-medium">{{ $t("watchnow") }}</h4>
         <span
           class="placeholder placeholder__moviedetail__text"
           v-if="loading"
         ></span>
-        <div v-if="movie.links && !loading">
+        <div v-if="!loading">
           <movieLink
             v-if="movie.links.youtube"
             color="#c4302b"
@@ -312,7 +400,9 @@
               dense
             ></v-rating>
             <v-card-text>
-              <p class="mb-0" :class="{restricted: review.restricted}">{{ review.description }}</p>
+              <p class="mb-0" :class="{ restricted: review.restricted }">
+                {{ review.description }}
+              </p>
               <small v-if="review.edited">
                 <em>{{
                   `${$t("editedon")} ${formatEditedDate(review.edited)}`
@@ -324,6 +414,9 @@
         </v-col>
       </v-row>
     </div>
+    <v-snackbar v-model="copiedToClipboard" color="success" outlined dark>{{
+      $t("copiedtoclipboard")
+    }}</v-snackbar>
   </div>
 </template>
 
@@ -366,10 +459,29 @@ export default {
           },
         ],
       },
+
+      copiedToClipboard: false,
     };
   },
 
   methods: {
+    copyToClipboard() {
+      const link =
+        "https://brdtheo.github.io/moviz/#/movie/" + this.$route.params.movieId;
+      let temp = document.createElement("textarea");
+      temp.value = link;
+      temp.style = { position: "absolute", bottom: "200vh" };
+      document.body.appendChild(temp);
+      temp.select();
+      document.execCommand("copy");
+      document.body.removeChild(temp);
+
+      this.copiedToClipboard = true;
+      setTimeout(() => {
+        this.copiedToClipboard = false;
+      }, 1000);
+    },
+
     async restrictReview(id) {
       try {
         await db.collection("reviews").doc(id).update({

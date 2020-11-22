@@ -90,5 +90,10 @@
     "addadminrole": "ajouter le rôle admin",
     "removeprivileges": "retirer les privilèges",
     "banuser": "bannir l'utilisateur",
-    "youraccounthasbeenbanned": "Votre compte a été banni"
+    "youraccounthasbeenbanned": "Votre compte a été banni",
+    "copiedtoclipboard": "copié dans le presse-papier",
+    "copytoclipboard": "copier dans le presse-papier",
+    "shareontwitter": "partager sur twitter",
+    "shareonfacebook": "partager sur facebook",
+    "shareviaemail": "partager via email"
 }

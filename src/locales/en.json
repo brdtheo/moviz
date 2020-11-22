@@ -90,5 +90,10 @@
     "addadminrole": "add admin role",
     "removeprivileges": "remove privileges",
     "banuser": "ban user",
-    "youraccounthasbeenbanned": "Your account has been banned"
+    "youraccounthasbeenbanned": "Your account has been banned",
+    "copiedtoclipboard": "copied to clipboard",
+    "copytoclipboard": "copy to clipboard",
+    "shareontwitter": "share on twitter",
+    "shareonfacebook": "share on facebook",
+    "shareviaemail": "share via email"
 }
