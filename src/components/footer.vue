@@ -11,6 +11,7 @@
             :key="link.name"
             :href="link.url"
             :target="link.target"
+            rel="noreferrer"
           >
             <v-icon dense>{{ "mdi-" + link.icon }}</v-icon>
           </v-btn>
