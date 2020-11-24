@@ -32,6 +32,7 @@
                 @click="toggleSearchMode"
                 dark
                 icon
+                aria-label="Open search bar"
                 v-if="!searchMode"
               >
                 <v-icon>mdi-magnify</v-icon>
@@ -54,6 +55,7 @@
                     icon
                     v-bind="attrs"
                     v-on="on"
+                    aria-label="Change language"
                   >
                     <v-icon size="20">mdi-translate</v-icon>
                   </v-btn>
