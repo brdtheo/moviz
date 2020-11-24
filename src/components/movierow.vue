@@ -34,7 +34,7 @@
           'align-end': $vuetify.breakpoint.smAndUp,
         }"
       >
-        <v-btn x-small text class="white--text" to="all-movies" v-if="!genre">
+        <v-btn x-small text class="white--text" href="all-movies" v-if="!genre">
           {{ $t("allmovies") }}
         </v-btn>
         <v-btn
@@ -226,10 +226,4 @@ export default {
   },
 };
 </script>
-
-<style>
-.v-card__title {
-  word-break: break-word;
-}
-</style>
 
