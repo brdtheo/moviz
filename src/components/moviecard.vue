@@ -26,7 +26,7 @@
     >
       <transition name="fade">
         <div class="movieDetails pa-5" v-if="displayDetails">
-          <h4>{{ name }}</h4>
+          <h3>{{ name }}</h3>
           <p>
             <small>{{ year }}</small>
           </p>
@@ -101,5 +101,9 @@ export default {
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
+}
+
+h3 {
+  font-size: 16px;
 }
 </style>
